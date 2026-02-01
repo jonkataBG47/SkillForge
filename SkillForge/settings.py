@@ -33,6 +33,7 @@ Project_apps = [
     'learning_paths',
     'resources',
     'skills',
+    'category'
 ]
 
 INSTALLED_APPS = [

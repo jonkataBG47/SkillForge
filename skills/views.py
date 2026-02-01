@@ -1,3 +1,4 @@
 from django.shortcuts import render
-
-# Create your views here.
+from skills.models import Skill
+from django.db.models import Count
+from django.shortcuts import get_object_or_404
