@@ -1,327 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkillForge - Learning Path Platform</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        /* Header and Navigation */
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 0;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .navbar {
-            padding: 1rem 0;
-        }
-<!doctype html>
-<html lang="bg">
-<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SkillForge</title>
-    <meta name="description" content="SkillForge — learning paths, skills and resources">
-
-    <!-- Bootstrap CSS only (no DTL, no additional JS) -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Placeholder: when extending this template, add extra head elements (styles, meta) here -->
     <style>
-        :root{--bg:#f8f9fb;--muted:#6c757d;--primary:#5568d3}
-        *{box-sizing:border-box}
-        body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:#0b1220}
-
-        .site-header{background:linear-gradient(90deg,var(--primary),#764ba2);color:#fff}
-        .site-header .navbar{padding:0.75rem 0}
-        .brand{font-weight:700;font-size:1.25rem;color:#fff;text-decoration:none}
-
-        main{padding:2rem 0}
-        .hero{padding:1.5rem;background:transparent}
-        .hero h1{font-size:1.75rem;margin-bottom:0.25rem}
-        .hero p{margin:0;color:var(--muted)}
-
-        .card-custom{border-radius:0.5rem;box-shadow:0 6px 18px rgba(11,17,32,0.06);background:#fff}
-
-        footer{background:#0f1724;color:#cbd5e1;padding:1.75rem 0;margin-top:2rem}
-        footer a{color:#cbd5e1;text-decoration:none}
-
-        .messages{margin-top:0.75rem}
-        .alert{border-radius:0.5rem}
-
-        @media (max-width:576px){.hero h1{font-size:1.25rem}}
+        :root{
+            --brand: #4f46e5;
+            --muted:#6b7280;
+            --card-radius:12px;
+        }
+        html,body{height:100%;}
+        body{
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background-color:#f8fafc;
+            color:#0f172a;
+            -webkit-font-smoothing:antialiased;
+        }
+        header{background:#ffffff;border-bottom:1px solid #e6eef7}
+        .brand{font-weight:700;color:var(--brand);letter-spacing:-0.2px}
+        .site-nav a{color:var(--muted);text-decoration:none}
+        .site-nav a:hover{color:#0f172a}
+        .hero{padding:4.5rem 0}
+        .card-compact{border-radius:var(--card-radius);box-shadow:0 6px 18px rgba(15,23,42,0.06)}
+        .feature-title{font-size:1.125rem;font-weight:600}
+        .small-muted{color:var(--muted);font-size:.95rem}
+        footer{background:#ffffff;border-top:1px solid #e6eef7;padding:3rem 0}
+        @media (max-width:576px){.hero{padding:2.5rem 0}.feature-title{font-size:1rem}}
     </style>
 </head>
 <body>
-
-    <header class="site-header">
-        <div class="container d-flex align-items-center justify-content-between">
-            <a class="brand" href="/">SkillForge</a>
-            <nav class="d-flex gap-2 align-items-center">
-                <a class="text-white text-decoration-none" href="/">Home</a>
-                <a class="text-white text-decoration-none" href="/skills/">Skills</a>
-                <a class="text-white text-decoration-none" href="/learning-paths/">Learning Paths</a>
-                <a class="text-white text-decoration-none" href="/resources/">Resources</a>
-                <a class="text-white text-decoration-none" href="/about/">About</a>
-            </nav>
-        </div>
-    </header>
-
-    <main>
-        <div class="container">
-            <section class="hero">
-                <h1>SkillForge</h1>
-                <p>Изграждайте умения и следвайте структурирани learning paths.</p>
-            </section>
-
-            <div id="messages" class="messages" aria-live="polite"></div>
-
-            <section id="page-content">
-                <div class="card card-custom p-3">
-                    <p class="mb-0 text-muted">Тук идва съдържанието на страницата (чист HTML + Bootstrap/CSS).</p>
-                </div>
-            </section>
-        </div>
-    </main>
-
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-12 col-md-4 mb-3">
-                    <strong>SkillForge</strong>
-                    <div class="text-muted">Learning paths, skills and resources</div>
-                </div>
-                <div class="col-12 col-md-4 mb-3">
-                    <strong>Links</strong>
-                    <div class="text-muted"><a href="/skills/">Skills</a> · <a href="/resources/">Resources</a></div>
-                </div>
-                <div class="col-12 col-md-4 mb-3">
-                    <strong>Contact</strong>
-                    <div class="text-muted">info@skillforge.com</div>
-                </div>
-            </div>
-            <div class="text-center mt-3" style="opacity:0.9">&copy; 2026 SkillForge</div>
-        </div>
-    </footer>
-
-</body>
-</html>
-            margin-bottom: 0.5rem;
-        }
-
-        /* Footer */
-        footer {
-            background-color: #2c3e50;
-            color: #ecf0f1;
-            padding: 3rem 0 1rem;
-            margin-top: 3rem;
-            border-top: 1px solid #34495e;
-        }
-
-        footer h5 {
-            color: white;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        footer a {
-            color: #bdc3c7;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        footer a:hover {
-            color: white;
-        }
-
-        .footer-section {
-            margin-bottom: 2rem;
-        }
-
-        .footer-bottom {
-            border-top: 1px solid #34495e;
-            padding-top: 2rem;
-            margin-top: 2rem;
-            text-align: center;
-            color: #95a5a6;
-        }
-
-        /* Messages/Alerts */
-        .alert {
-            border-radius: 6px;
-            border: none;
-            margin-bottom: 1.5rem;
-        }
-
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-        }
-
-        .alert-danger {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-
-        .alert-warning {
-            background-color: #fff3cd;
-            color: #856404;
-        }
-
-        .alert-info {
-            background-color: #d1ecf1;
-            color: #0c5460;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .navbar-brand {
-                font-size: 1.5rem;
-            }
-
-            main {
-                padding: 1rem 0;
-            }
-
-            footer {
-                padding: 2rem 0 1rem;
-            }
-        }
-
-        /* Utility Classes */
-        .text-muted {
-            color: #6c757d !important;
-        }
-
-        .text-dark {
-            color: #2c3e50 !important;
-        }
-
-        .section-title {
-            color: #2c3e50;
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 1rem;
-        }
-
-        .divider {
-            height: 1px;
-            background: linear-gradient(to right, transparent, #ddd, transparent);
-            margin: 2rem 0;
-        }
-    </style>
-</head>
-<body>
-    <!-- Header -->
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark">
-            <div class="container">
-                <a class="navbar-brand" href="/">SkillForge</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/skills/">Skills</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/learning-paths/">Learning Paths</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/resources/">Resources</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/about/">About</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <div class="container py-3 d-flex align-items-center justify-content-between">
+            <a class="brand h5 mb-0" href="/">SkillForge</a>
+            <nav class="site-nav">
+                <ul class="nav gap-3 align-items-center">
+                    <li class="nav-item"><a class="nav-link px-0" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link px-0" href="/skills/">Skills</a></li>
+                    <li class="nav-item"><a class="nav-link px-0" href="/learning-paths/">Learning Paths</a></li>
+                    <li class="nav-item"><a class="nav-link px-0" href="/resources/">Resources</a></li>
+                    <li class="nav-item"><a class="nav-link px-0" href="/about/">About</a></li>
+                </ul>
+            </nav>
+            <!-- No account UI: this project does not include user accounts -->
+        </div>
     </header>
 
-    <!-- Messages -->
-    <div class="container mt-3">
-        <div id="messages-container">
-            <!-- Messages will be displayed here -->
-        </div>
-    </div>
-
-    <!-- Main Content -->
     <main>
-        <div class="container">
-            <!-- Page content goes here -->
-        </div>
+        <section class="hero">
+            <div class="container">
+                <div class="row align-items-center gx-5">
+                    <div class="col-lg-7">
+                        <h1 class="display-6 mb-3">Build skills. Create learning paths. Grow your career.</h1>
+                        <p class="lead text-muted mb-4">Curated resources and structured paths to help learners upskill faster — organized, discoverable, and practical.</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <a class="btn btn-primary btn-lg" href="#">Explore paths</a>
+                            <a class="btn btn-outline-primary btn-lg" href="#">Browse resources</a>
+                        </div>
+                        <p class="mt-4 small-muted">Designed for clarity and speed — ready to be extended for your Django project.</p>
+                    </div>
+                    <div class="col-lg-5 mt-4 mt-lg-0">
+                        <div class="card card-compact p-3">
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="flex-shrink-0 bg-light rounded p-3" style="width:72px;height:72px;display:flex;align-items:center;justify-content:center">
+                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="6" fill="var(--brand)"/></svg>
+                                </div>
+                                <div>
+                                    <h5 class="mb-1">Intro to Python</h5>
+                                    <p class="mb-0 small-muted">6 lessons • 3h</p>
+                                </div>
+                            </div>
+                            <hr class="my-3">
+                            <div class="d-flex gap-2">
+                                <a class="btn btn-sm btn-outline-primary" href="#">View</a>
+                                <a class="btn btn-sm btn-primary" href="#">Add to path</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-5">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="h4 mb-0">Featured resources</h2>
+                    <a class="small-muted" href="#">See all</a>
+                </div>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div class="col">
+                        <article class="card h-100 card-compact">
+                            <div class="card-body">
+                                <h3 class="feature-title">Design Systems</h3>
+                                <p class="small-muted mb-3">Practical guide to building scalable UI systems.</p>
+                                <div class="d-flex gap-2 mt-auto">
+                                    <a class="btn btn-sm btn-outline-secondary" href="#">Preview</a>
+                                    <a class="btn btn-sm btn-primary" href="#">Save</a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col">
+                        <article class="card h-100 card-compact">
+                            <div class="card-body">
+                                <h3 class="feature-title">API Design</h3>
+                                <p class="small-muted mb-3">Best practices for building reliable APIs.</p>
+                                <div class="d-flex gap-2 mt-auto">
+                                    <a class="btn btn-sm btn-outline-secondary" href="#">Preview</a>
+                                    <a class="btn btn-sm btn-primary" href="#">Save</a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col">
+                        <article class="card h-100 card-compact">
+                            <div class="card-body">
+                                <h3 class="feature-title">Data Visualization</h3>
+                                <p class="small-muted mb-3">Techniques for clear and effective charts.</p>
+                                <div class="d-flex gap-2 mt-auto">
+                                    <a class="btn btn-sm btn-outline-secondary" href="#">Preview</a>
+                                    <a class="btn btn-sm btn-primary" href="#">Save</a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-4 bg-white">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3 class="h5">Why SkillForge?</h3>
+                        <p class="small-muted">Organize learning into paths, track progress, and share curated resources with teams and learners.</p>
+                    </div>
+                    <div class="col-md-6 d-flex align-items-center justify-content-md-end">
+                        <a class="btn btn-outline-primary" href="#">Learn more</a>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="row">
-                <div class="col-md-4 footer-section">
-                    <h5>SkillForge</h5>
-                    <p>Your platform for continuous learning and skill development.</p>
+            <div class="row gy-4">
+                <div class="col-md-4">
+                    <h5 class="mb-2">SkillForge</h5>
+                    <p class="small-muted">Focused learning experiences and practical resources for fast skill growth.</p>
                 </div>
-                <div class="col-md-4 footer-section">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="/">Home</a></li>
+                <div class="col-md-4">
+                    <h6 class="mb-2">Explore</h6>
+                    <ul class="list-unstyled small-muted">
                         <li><a href="/skills/">Skills</a></li>
-                        <li><a href="/learning-paths/">Learning Paths</a></li>
+                        <li><a href="/learning-paths/">Learning paths</a></li>
                         <li><a href="/resources/">Resources</a></li>
                     </ul>
                 </div>
-                <div class="col-md-4 footer-section">
-                    <h5>Contact</h5>
-                    <p>Email: info@skillforge.com</p>
-                    <p>Phone: +1 (555) 123-4567</p>
+                <div class="col-md-4">
+                    <h6 class="mb-2">Contact</h6>
+                    <p class="small-muted mb-0">info@skillforge.com</p>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 SkillForge. All rights reserved.</p>
-            </div>
+            <div class="text-center mt-4 small-muted">&copy; 2026 SkillForge. All rights reserved.</div>
         </div>
     </footer>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Utility function for messages
-        function showMessage(message, type = 'info') {
-            const messagesContainer = document.getElementById('messages-container');
-            const alertDiv = document.createElement('div');
-            alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
-            alertDiv.setAttribute('role', 'alert');
-            alertDiv.innerHTML = `
-                ${message}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            `;
-            messagesContainer.appendChild(alertDiv);
-        }
-    </script>
 </body>
 </html>

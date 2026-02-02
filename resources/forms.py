@@ -1,6 +1,6 @@
 from django import forms
 from resources.models import Resource
-class FormResourse(forms.ModelForm):
+class FormResource(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['created_at'].disabled = True
