@@ -7,7 +7,7 @@ class FormResource(forms.ModelForm):
         self.fields['updated_at'].disabled = True
     class Meta:
         model = Resource
-        exclude = ('slug')
+        exclude = ('slug',)
         help_texts = {
             'title':'Title the resource',
             'url':'Submit the url of resource',

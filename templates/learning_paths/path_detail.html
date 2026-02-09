@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Path Details{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="mb-5">
+        <div class="row mb-4">
+            <div class="col-lg-8">
+                <div class="d-flex align-items-start justify-content-between mb-4">
+                    <div>
+                        <h1 class="h2 fw-bold mb-2">{{path.title}}</h1>
+                        <p class="lead text-muted">{{path.description}}</p>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <a href="{%url 'update_path' path.id%}" class="btn btn-outline-primary">Edit</a>
+                        <a href="{%url 'delete_path' path.id%}" class="btn btn-outline-danger">Delete</a>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-3 shadow-sm">
+                    <h3 class="h5 fw-bold mb-3">Path Information</h3>
+                    <dl class="row mb-0">
+
+                        <dt class="col-sm-3 text-muted small text-uppercase">Created</dt>
+                        <dd class="col-sm-9 mb-3">{{path.created_at}}</dd>
+
+                        <dt class="col-sm-3 text-muted small text-uppercase">Updated</dt>
+                        <dd class="col-sm-9 mb-0">{{path.updated_at}}</dd>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="bg-white p-4 rounded-3 shadow-sm">
+                    <h3 class="h6 fw-bold mb-3">Path Stats</h3>
+                    <div class="text-center">
+                        <p class="display-6 fw-bold mb-2 text-primary">{{path.count_skills}}</p>
+                        <p class="text-muted small mb-0">Skills in Path</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5">
+        <h3 class="h4 fw-bold mb-4">Skills in this Path</h3>
+        <div class="row g-4">
+            {% for skill in path.skills.all %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <h5 class="card-title fw-bold mb-0">{{skill.title}}</h5>
+                            <span class="badge bg-success">Intermediate</span>
+                        </div>
+                        <p class="card-text text-muted small mb-3">{{skill.description}}</p>
+                        <small class="text-muted">
+                            <i class="bi bi-clock"></i> {{skill.estimeted_hours}} hours
+                        </small>
+                    </div>
+                    <div class="card-footer bg-transparent border-top">
+                        <a href="#" class="btn btn-sm btn-primary w-100">View Skill</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="alert alert-info rounded-3 mt-4" role="alert">
+            <i class="bi bi-info-circle me-2"></i>
+            <strong>No skills in this path yet.</strong> Skills will appear here once added.
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

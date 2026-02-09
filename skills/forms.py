@@ -1,10 +1,12 @@
 from django import forms
 from skills.models import Skill
+class SearchForm(forms.Form):
+    query = forms.CharField(max_length=100,label='',required=False)
 class FormSkill(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['created_at'].disabled = True
-        self.fields['updated_at'].disabled = True
+        #self.fields['created_at'].disabled = True
+        #self.fields['updated_at'].disabled = True
     class Meta:
         model = Skill
         exclude = ('slug',)

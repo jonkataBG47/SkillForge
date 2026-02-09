@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Create Skill{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mb-5">
+    <div class="col-lg-6">
+        <div class="bg-white p-5 rounded-3 shadow-sm">
+            <h1 class="h3 mb-2">Create New Skill</h1>
+            <p class="text-muted mb-4">Add a new skill to the SkillForge catalog</p>
+            <form method="post" novalidate>
+                {% csrf_token %}
+                {{form}}
+                <div class="d-flex gap-2 pt-3">
+                <button type="submit" class="btn btn-primary flex-grow-1">Create Skill</button>
+                <a href="{%url 'skill_list' %}" class="btn btn-outline-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

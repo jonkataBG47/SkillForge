@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Skills{% endblock %}
+
+{% block content %}
+<div class="mb-5">
+    <div class="row align-items-center mb-4">
+        <div class="col-md-8">
+            <h1 class="h2 mb-2">Skills</h1>
+            <p class="text-muted">Explore our comprehensive skill catalog</p>
+        </div>
+        <div class="col-md-4 text-end">
+        <a href="{% url 'create_skill' %}" class="btn btn-primary">+ Add New Skill</a>
+        </div>
+    </div>
+
+    <form method="get" class="mb-4">
+        <div class="input-group">
+            {{form.query}}
+            <button class="btn btn-outline-secondary" type="submit"><i class="bi bi-search"></i></button>
+        </div>
+    <div class="row g-4">
+        {%for skill in skills%}
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm border-0 rounded-3">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold mb-2">{{skill.title}}</h5>
+                    <p class="card-text text-muted small mb-3">{{skill.description}}</p>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="badge bg-light text-dark">{{skill.category.name}}</span>
+                     <small class="text-muted">{{skill.estimated_hours}}</small>
+                    </div>
+                </div>
+                <div class="card-footer bg-white border-top-0">
+                    <div class="d-flex gap-2">
+                        <a href="{% url 'skill_detail' skill.slug %}" class="btn btn-sm btn-outline-primary flex-grow-1">View</a>
+                        <a href="{% url 'update_skill' skill.id %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                        <a href="{% url 'delete_skill' skill.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="alert alert-info rounded-3" role="alert">
+        <i class="bi bi-info-circle me-2"></i>
+        <strong>No skills available yet.</strong> Create your first skill to get started.
+        </div>
+        {%endfor%}
+    </div>
+</div>
+{% endblock %}

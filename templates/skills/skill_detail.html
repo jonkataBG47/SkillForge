@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Skill Details{% endblock %}
+
+{% block content %}
+<div class="mb-5">
+    <div class="row mb-4">
+        <div class="col-lg-8">
+            <div class="d-flex align-items-start justify-content-between mb-4">
+                <div>
+                <h1 class="h2 mb-2">{{skill.title}}</h1>
+                <p class="text-muted lead">{{skill.description}}</p>
+                </div>
+                <div>
+                <a href="{% url 'update_skill' skill.id %}" class="btn btn-outline-primary">Edit</a>
+                <a href="{% url 'delete_skill' skill.id %}" class="btn btn-outline-danger">Delete</a>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-3 shadow-sm mb-4">
+                <h3 class="h5 fw-bold mb-3">Details</h3>
+                <dl class="row mb-0">
+                    <dt class="col-sm-3 text-muted small text-uppercase">Category</dt>
+                    <dd class="col-sm-9 mb-3">{{skill.category.name}}</dd>
+
+                    <dt class="col-sm-3 text-muted small text-uppercase">Estimated Hours</dt>
+                    <dd class="col-sm-9 mb-0">{{skill.estimated_hours}}</dd>
+                </dl>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            {%for resourse in resources%}
+            <div class="bg-white p-4 rounded-3 shadow-sm">
+                <h3 class="h6 fw-bold mb-3">Related Resoursec </h3>
+                <p class="text-muted small">{{resourse.title}}</p>
+                <a href="{{resourse.url}}" class="btn btn-sm btn-primary w-100">View Resource</a>
+            </div>
+            {% empty %}
+            <div class="alert alert-info rounded-3 mt-4" role="alert">
+            <i class="bi bi-info-circle me-2"></i>
+            <strong>No resources available yet.</strong> Create your first resources to get started.
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+</div>
+{% endblock %}

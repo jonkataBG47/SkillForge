@@ -10,28 +10,28 @@ def create_path(request:HttpRequest):
         form.save()
         return redirect('home')
     context = {'form':form}
-    return render(request,'path_create.html',context)
+    return render(request,'learning_paths/path_create.html',context)
 def update_path(request:HttpRequest,id):
-    post = get_object_or_404(LearningPath,id=id)
-    form = FormLearningPaths(request.POST or None,instance=post)
+    path = get_object_or_404(LearningPath,id=id)
+    form = FormLearningPaths(request.POST or None,instance=path)
     if request.method == 'POST' and form.is_valid():
         form.save()
         return redirect('home')
-    context = {'form':form,'post':post}
-    return render(request,'path_update.html',context)
-def remove_path(request:HttpRequest,id):
-    post = get_object_or_404(LearningPath,id=id)
-    form = FormLearningPaths(instance=post)
+    context = {'form':form,'post':path}
+    return render(request,'learning_paths/path_update.html',context)
+def delete_path(request:HttpRequest,id):
+    path = get_object_or_404(LearningPath,id=id)
+    form = FormLearningPaths(instance=path)
     if request.method == 'POST':
-        post.delete()
+        path.delete()
         return redirect('home')
-    context = {'form':form,'post':post}
-    return render(request,'path_delete_confirm.html',context)
+    context = {'form':form,'path':path}
+    return render(request,'learning_paths/path_delete_confirm.html',context)
 def path_list(request:HttpRequest):
-    path = LearningPath.objects.all()
-    context = {'path':path}
-    return render(request,'path_list.html',context)
+    paths = LearningPath.objects.all().order_by('-created_at')
+    context = {'paths':paths}
+    return render(request,'learning_paths/path_list.html',context)
 def path_detail(request:HttpRequest,slug):
-    path = get_object_or_404(LearningPath,slug=slug)
+    path = get_object_or_404(LearningPath.objects.annotate(count_skills = Count('skills')),slug=slug)
     context = {'path':path}
-    return render(request,'path_detail.html',context)
+    return render(request,'learning_paths/path_detail.html',context)

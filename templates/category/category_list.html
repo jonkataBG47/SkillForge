@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{%block title%}Categories{%endblock%}
+{%block content%}
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <div>
+            <h1 class="h2 fw-bold mb-2">Categories</h1>
+            <p class="text-muted">Browse and manage all skill categories</p>
+        </div>
+        <a href = "{%url 'create_category'%}"class="btn btn-primary">+ Add New Category</a> 
+    </div>
+    <div class="row g-4">
+        {%for category in categories%}
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">{{ category.name }}</h5>
+                    
+                    <p class="card-text text-muted small">{{ category.description|truncatewords:20|default:"No description" }}</p>
+                    
+                    <small class="text-muted"><i class="bi bi-tag"></i> {{ count_skill }} skills</small>
+                </div>
+                <div class="card-footer bg-transparent border-top d-flex gap-2">
+                    <a href="{%url 'category_detail' category.slug%}" class="btn btn-sm btn-outline-primary flex-grow-1">View</a>
+                    <a href ="{%url 'update_category' category.id%}" class ='btn btn-sm btn-outline-primary flex-grow-1'>Update</a>
+                    <a href ="{%url 'delete_category' category.id%}" class ='btn btn-sm btn-outline-primary flex-grow-1'>Delete</a>
+                </div>
+            </div>
+        </div>
+        {%empty%}
+        <div class="alert alert-info rounded-3" role="alert">
+        <i class="bi bi-info-circle me-2"></i>
+        <strong>No categories available yet.</strong> Create your first category to get started.
+        </div>
+        {%endfor%}
+    </div>
+</div>
+{%endblock%}
+

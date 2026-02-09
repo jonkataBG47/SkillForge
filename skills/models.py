@@ -3,14 +3,15 @@ from core.models import Requerment
 from django.utils.text import slugify
 from django.core.validators import MinValueValidator
 from category.models import Category
+from core.validators import blank_validator
 class Skill(Requerment):
     class SkillChoices(models.TextChoices):
         BEGINNER = 'Beginner','Beginner'
         INTERMEDIATE = 'Intermediate','Intermediate'
         ADVANCED = 'Advanced','Advanced'
-    title = models.CharField(max_length=255,unique=True)
+    title = models.CharField(max_length=255,unique=True,validators=[blank_validator])
     slug = models.SlugField(unique=True,blank=True,editable=False)
-    description = models.TextField(blank=True,null=True)
+    description = models.TextField(validators=[blank_validator])
     difficulty = models.CharField(max_length=50,choices=SkillChoices.choices)
     estimated_hours = models.PositiveIntegerField(validators=[MinValueValidator(1,'The estimated hours must be 1 or more')])
     category = models.ForeignKey(Category,on_delete=models.CASCADE,related_name='skills')

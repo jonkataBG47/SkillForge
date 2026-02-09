@@ -3,171 +3,281 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SkillForge</title>
+    <title>{% block title %}SkillForge - Master Skills Systematically{% endblock %}</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Placeholder: when extending this template, add extra head elements (styles, meta) here -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
     <style>
-        :root{
+        :root {
             --brand: #4f46e5;
-            --muted:#6b7280;
-            --card-radius:12px;
+            --brand-dark: #4338ca;
+            --brand-light: #eef2ff;
+            --muted: #6b7280;
+            --success: #10b981;
+            --card-radius: 12px;
+            --transition: all 0.3s ease;
         }
-        html,body{height:100%;}
-        body{
-            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-            background-color:#f8fafc;
-            color:#0f172a;
-            -webkit-font-smoothing:antialiased;
+
+        * {
+            transition: var(--transition);
         }
-        header{background:#ffffff;border-bottom:1px solid #e6eef7}
-        .brand{font-weight:700;color:var(--brand);letter-spacing:-0.2px}
-        .site-nav a{color:var(--muted);text-decoration:none}
-        .site-nav a:hover{color:#0f172a}
-        .hero{padding:4.5rem 0}
-        .card-compact{border-radius:var(--card-radius);box-shadow:0 6px 18px rgba(15,23,42,0.06)}
-        .feature-title{font-size:1.125rem;font-weight:600}
-        .small-muted{color:var(--muted);font-size:.95rem}
-        footer{background:#ffffff;border-top:1px solid #e6eef7;padding:3rem 0}
-        @media (max-width:576px){.hero{padding:2.5rem 0}.feature-title{font-size:1rem}}
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            color: #0f172a;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #fff;
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--brand) !important;
+            letter-spacing: -0.5px;
+        }
+
+        .navbar-brand i {
+            margin-right: 0.5rem;
+        }
+
+        .nav-link {
+            color: var(--muted) !important;
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 0.25rem !important;
+        }
+
+        .nav-link:hover {
+            color: var(--brand) !important;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--brand);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        main {
+            min-height: calc(100vh - 300px);
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
+            color: white;
+            padding: 5rem 0;
+            border-radius: var(--card-radius);
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 40px rgba(79, 70, 229, 0.2);
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-section .lead {
+            font-size: 1.3rem;
+            opacity: 0.95;
+        }
+
+        .feature-card {
+            background: white;
+            border: none;
+            border-radius: var(--card-radius);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            padding: 2rem;
+            height: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 3px solid var(--brand);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature-card i {
+            font-size: 2.5rem;
+            color: var(--brand);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h5 {
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 0.75rem;
+        }
+
+        .btn-primary {
+            background: var(--brand);
+            border: none;
+            font-weight: 600;
+            padding: 0.625rem 1.5rem;
+            border-radius: 6px;
+        }
+
+        .btn-primary:hover {
+            background: var(--brand-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-outline-primary {
+            color: var(--brand);
+            border-color: var(--brand);
+            border-width: 2px;
+        }
+
+        .btn-outline-primary:hover {
+            background: var(--brand);
+            border-color: var(--brand);
+        }
+
+        footer {
+            background: #fff;
+            border-top: 1px solid #e2e8f0;
+            padding: 3rem 0;
+            margin-top: 5rem;
+        }
+
+        footer a {
+            color: var(--muted);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        footer a:hover {
+            color: var(--brand);
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+            margin: 2rem 0;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
     </style>
-</head>
+
 <body>
-    <header>
-        <div class="container py-3 d-flex align-items-center justify-content-between">
-            <a class="brand h5 mb-0" href="/">SkillForge</a>
-            <nav class="site-nav">
-                <ul class="nav gap-3 align-items-center">
-                    <li class="nav-item"><a class="nav-link px-0" href="/">Home</a></li>
-                    <li class="nav-item"><a class="nav-link px-0" href="/skills/">Skills</a></li>
-                    <li class="nav-item"><a class="nav-link px-0" href="/learning-paths/">Learning Paths</a></li>
-                    <li class="nav-item"><a class="nav-link px-0" href="/resources/">Resources</a></li>
-                    <li class="nav-item"><a class="nav-link px-0" href="/about/">About</a></li>
-                </ul>
-            </nav>
-            <!-- No account UI: this project does not include user accounts -->
-        </div>
-    </header>
 
-    <main>
-        <section class="hero">
-            <div class="container">
-                <div class="row align-items-center gx-5">
-                    <div class="col-lg-7">
-                        <h1 class="display-6 mb-3">Build skills. Create learning paths. Grow your career.</h1>
-                        <p class="lead text-muted mb-4">Curated resources and structured paths to help learners upskill faster — organized, discoverable, and practical.</p>
-                        <div class="d-flex flex-wrap gap-2">
-                            <a class="btn btn-primary btn-lg" href="#">Explore paths</a>
-                            <a class="btn btn-outline-primary btn-lg" href="#">Browse resources</a>
-                        </div>
-                        <p class="mt-4 small-muted">Designed for clarity and speed — ready to be extended for your Django project.</p>
-                    </div>
-                    <div class="col-lg-5 mt-4 mt-lg-0">
-                        <div class="card card-compact p-3">
-                            <div class="d-flex align-items-start gap-3">
-                                <div class="flex-shrink-0 bg-light rounded p-3" style="width:72px;height:72px;display:flex;align-items:center;justify-content:center">
-                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="6" fill="var(--brand)"/></svg>
-                                </div>
-                                <div>
-                                    <h5 class="mb-1">Intro to Python</h5>
-                                    <p class="mb-0 small-muted">6 lessons • 3h</p>
-                                </div>
-                            </div>
-                            <hr class="my-3">
-                            <div class="d-flex gap-2">
-                                <a class="btn btn-sm btn-outline-primary" href="#">View</a>
-                                <a class="btn btn-sm btn-primary" href="#">Add to path</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-5">
-            <div class="container">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h2 class="h4 mb-0">Featured resources</h2>
-                    <a class="small-muted" href="#">See all</a>
-                </div>
-                <div class="row row-cols-1 row-cols-md-3 g-4">
-                    <div class="col">
-                        <article class="card h-100 card-compact">
-                            <div class="card-body">
-                                <h3 class="feature-title">Design Systems</h3>
-                                <p class="small-muted mb-3">Practical guide to building scalable UI systems.</p>
-                                <div class="d-flex gap-2 mt-auto">
-                                    <a class="btn btn-sm btn-outline-secondary" href="#">Preview</a>
-                                    <a class="btn btn-sm btn-primary" href="#">Save</a>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                    <div class="col">
-                        <article class="card h-100 card-compact">
-                            <div class="card-body">
-                                <h3 class="feature-title">API Design</h3>
-                                <p class="small-muted mb-3">Best practices for building reliable APIs.</p>
-                                <div class="d-flex gap-2 mt-auto">
-                                    <a class="btn btn-sm btn-outline-secondary" href="#">Preview</a>
-                                    <a class="btn btn-sm btn-primary" href="#">Save</a>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                    <div class="col">
-                        <article class="card h-100 card-compact">
-                            <div class="card-body">
-                                <h3 class="feature-title">Data Visualization</h3>
-                                <p class="small-muted mb-3">Techniques for clear and effective charts.</p>
-                                <div class="d-flex gap-2 mt-auto">
-                                    <a class="btn btn-sm btn-outline-secondary" href="#">Preview</a>
-                                    <a class="btn btn-sm btn-primary" href="#">Save</a>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-4 bg-white">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h3 class="h5">Why SkillForge?</h3>
-                        <p class="small-muted">Organize learning into paths, track progress, and share curated resources with teams and learners.</p>
-                    </div>
-                    <div class="col-md-6 d-flex align-items-center justify-content-md-end">
-                        <a class="btn btn-outline-primary" href="#">Learn more</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-            <div class="row gy-4">
-                <div class="col-md-4">
-                    <h5 class="mb-2">SkillForge</h5>
-                    <p class="small-muted">Focused learning experiences and practical resources for fast skill growth.</p>
-                </div>
-                <div class="col-md-4">
-                    <h6 class="mb-2">Explore</h6>
-                    <ul class="list-unstyled small-muted">
-                        <li><a href="/skills/">Skills</a></li>
-                        <li><a href="/learning-paths/">Learning paths</a></li>
-                        <li><a href="/resources/">Resources</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h6 class="mb-2">Contact</h6>
-                    <p class="small-muted mb-0">info@skillforge.com</p>
-                </div>
+            <a class="navbar-brand" href="/">
+                <i class="bi bi-lightning-fill"></i>SkillForge
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto gap-3">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/skills/">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/paths/">Learning Paths</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/resources/">Resources</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/categories/">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about/">About</a>
+                    </li>
+                </ul>
             </div>
-            <div class="text-center mt-4 small-muted">&copy; 2026 SkillForge. All rights reserved.</div>
         </div>
-    </footer>
+    </nav>
+</header>
+
+<main class="py-5">
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="row g-5 mb-5">
+            <div class="col-lg-4">
+                <h5 class="fw-bold text-gradient mb-3">
+                    <i class="bi bi-lightning-fill"></i>SkillForge
+                </h5>
+                <p class="text-muted small">Master skills systematically with structured learning paths and curated resources.</p>
+            </div>
+            <div class="col-lg-2">
+                <h6 class="fw-bold mb-3">Platform</h6>
+                <ul class="list-unstyled">
+                    <li><a href="/skills/">Skills</a></li>
+                    <li><a href="/learning-paths/">Learning Paths</a></li>
+                    <li><a href="/resources/">Resources</a></li>
+                    <li><a href="/categories/">Categories</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2">
+                <h6 class="fw-bold mb-3">Company</h6>
+                <ul class="list-unstyled">
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-4">
+                <h6 class="fw-bold mb-3">Resources</h6>
+                <ul class="list-unstyled">
+                    <li><a href="https://github.com/jonkataBG47/SkillForge">Documentation</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-divider"></div>
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <p class="text-muted small mb-0">&copy; 2026 SkillForge. All rights reserved.</p>
+            </div>
+            <div class="col-md-6 text-end">
+                <a href="#" class="text-muted small me-3">Privacy Policy</a>
+                <a href="#" class="text-muted small">Terms of Service</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

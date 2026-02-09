@@ -3,8 +3,8 @@ from category.models import Category
 class FormCategory(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['created_at'].disabled = True
-        self.fields['updated_at'].disabled = True
+        #self.fields['created_at'].disabled = True
+        #self.fields['updated_at'].disabled = True
     class Meta:
         model = Category
         exclude = ('slug',)

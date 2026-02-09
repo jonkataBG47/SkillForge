@@ -3,11 +3,12 @@ from learning_paths.models import LearningPath
 class FormLearningPaths(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['created_at'].disabled = True
-        self.fields['updated_at'].disabled = True
+        # for created_at in self.fields:
+        #     self.fields[created_at].widget.attrs['readonly'] = 'readonly'
+
     class Meta:
         model = LearningPath
-        exclude = ('slug')
+        exclude = ('slug',)
         help_texts ={
             'title':'Title the the learning path',
             'description':'Write your plan',
