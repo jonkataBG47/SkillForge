@@ -11,11 +11,12 @@
                 <form method="post" novalidate>
                 {% csrf_token %}
                 {{form}}
+                <p>Last updated at: {{path.updated_at|date:"F j, Y, g:i a" }}</p>
                 <div class="d-flex gap-2 pt-3"></div>
                 <button type="submit" class="btn btn-primary flex-grow-1">Update Path</button>
-                <a href="{%url 'skill_list' %}" class="btn btn-outline-secondary">Cancel</a>
+                <a href="{%url 'path_detail' path.slug%}" class="btn btn-outline-secondary">Cancel</a>
                 </form>
-                </div>
+                
             </div>
         </div>
     </div>

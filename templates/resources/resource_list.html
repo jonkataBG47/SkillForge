@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Resource{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <div>
+            <h1 class="h2 fw-bold mb-2">Resources</h1>
+            <p class="text-muted">Explore structured learning journeys designed to build competency</p>
+        </div>
+        <a href="{%url 'create_resource'%}" class="btn btn-primary">+ Create New Resource</a>
+    </div>
+    <div class="row g-4">
+        {%for resource in resources%}
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm border-0 rounded-3">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold mb-2">{{resource.title}}</h5>
+                    <p class="card-text text-muted small mb-3">{{resource.resource_type}}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">
+                            <i class="bi bi-calendar"></i> {{resource.created_at|date:"M d, Y"}}
+                        </small>
+                    </div>
+                </div>
+                <div class="card-footer bg-white border-top-0">
+                    <div class="d-flex gap-2">
+                        <a href="{%url 'resource_detail' resource.slug%}" class="btn btn-sm btn-outline-primary flex-grow-1">View</a>
+                        <a href="{%url 'update_resource' resource.id%}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                        <a href="{%url 'delete_resource' resource.id%}" class="btn btn-sm btn-outline-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {%empty%}
+        <div class="alert alert-info rounded-3 mt-4" role="alert">
+        <i class="bi bi-info-circle me-2"></i>
+        <strong>No resourses available yet.</strong> Create your resourse to get started.
+        </div>
+        {%endfor%}
+    </div>
+</div>
+{% endblock %}

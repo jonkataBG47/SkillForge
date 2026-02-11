@@ -17,7 +17,6 @@
                         <a href="{%url 'delete_path' path.id%}" class="btn btn-outline-danger">Delete</a>
                     </div>
                 </div>
-
                 <div class="bg-white p-4 rounded-3 shadow-sm">
                     <h3 class="h5 fw-bold mb-3">Path Information</h3>
                     <dl class="row mb-0">
@@ -30,7 +29,6 @@
                     </dl>
                 </div>
             </div>
-
             <div class="col-lg-4">
                 <div class="bg-white p-4 rounded-3 shadow-sm">
                     <h3 class="h6 fw-bold mb-3">Path Stats</h3>
@@ -42,7 +40,6 @@
             </div>
         </div>
     </div>
-
     <div class="mt-5">
         <h3 class="h4 fw-bold mb-4">Skills in this Path</h3>
         <div class="row g-4">
@@ -60,7 +57,7 @@
                         </small>
                     </div>
                     <div class="card-footer bg-transparent border-top">
-                        <a href="#" class="btn btn-sm btn-primary w-100">View Skill</a>
+                        <a href="{%url 'skill_detail' skill.slug%}" class="btn btn-sm btn-primary w-100">View Skill</a>
                     </div>
                 </div>
             </div>

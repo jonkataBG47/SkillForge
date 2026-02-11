@@ -21,3 +21,6 @@ class FormLearningPaths(forms.ModelForm):
             'description':{'required':'This field is required.'},
             'skills': {'required':'This field is required.'}
         }
+        widgets = {
+            'skills':forms.CheckboxSelectMultiple,
+        }

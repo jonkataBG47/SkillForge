@@ -12,7 +12,7 @@
             <form method="post" novalidate>
                 {% csrf_token %}
                 {{ form }}
-
+                <p>Last updated at: {{skill.updated_at|date:"F j, Y, g:i a" }}</p>
                 <div class="d-flex gap-2 pt-3">
                     <button type="submit" class="btn btn-primary flex-grow-1">Save Changes</button>
                     <a href="{%url 'skill_detail' skill.slug%}" class="btn btn-outline-secondary">Cancel</a>

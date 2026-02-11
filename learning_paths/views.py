@@ -8,7 +8,7 @@ def create_path(request:HttpRequest):
     form = FormLearningPaths(request.POST or None)
     if request.method == 'POST' and form.is_valid():
         form.save()
-        return redirect('home')
+        return redirect('path_list')
     context = {'form':form}
     return render(request,'learning_paths/path_create.html',context)
 def update_path(request:HttpRequest,id):
@@ -16,19 +16,19 @@ def update_path(request:HttpRequest,id):
     form = FormLearningPaths(request.POST or None,instance=path)
     if request.method == 'POST' and form.is_valid():
         form.save()
-        return redirect('home')
-    context = {'form':form,'post':path}
+        return redirect('path_list')
+    context = {'form':form,'path':path}
     return render(request,'learning_paths/path_update.html',context)
 def delete_path(request:HttpRequest,id):
     path = get_object_or_404(LearningPath,id=id)
     form = FormLearningPaths(instance=path)
     if request.method == 'POST':
         path.delete()
-        return redirect('home')
+        return redirect('path_list')
     context = {'form':form,'path':path}
     return render(request,'learning_paths/path_delete_confirm.html',context)
 def path_list(request:HttpRequest):
-    paths = LearningPath.objects.all().order_by('-created_at')
+    paths = LearningPath.objects.all().order_by('-created_at','title')
     context = {'paths':paths}
     return render(request,'learning_paths/path_list.html',context)
 def path_detail(request:HttpRequest,slug):

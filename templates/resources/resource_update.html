@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Update Resorce{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="bg-white p-5 rounded-3 shadow-sm">
+                <h1 class="h2 fw-bold mb-4">Update Resorce</h1>
+                <form method="post" novalidate>
+                {% csrf_token %}
+                {{form}}
+                <p>Last updated at: {{resource.updated_at|date:"F j, Y, g:i a" }}</p>
+                <div class="d-flex gap-2 pt-3"></div>
+                <button type="submit" class="btn btn-primary flex-grow-1">Update Resorce</button>
+                <a href="{%url 'resource_detail' resource.slug%}" class="btn btn-outline-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

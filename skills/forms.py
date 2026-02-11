@@ -1,12 +1,14 @@
-from django import forms
 from skills.models import Skill
+from django import forms
 class SearchForm(forms.Form):
-    query = forms.CharField(max_length=100,label='',required=False)
+    query = forms.CharField(max_length=100,label='Search',required=False)
 class FormSkill(forms.ModelForm):
+    #created_at = forms.DateTimeField(required=False,disabled=True)
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        #self.fields['created_at'].disabled = True
-        #self.fields['updated_at'].disabled = True
+        # for created_at in self.fields:
+        #     self.fields[created_at].widget.attrs['readonly'] = 'readonly'
+        #     self.fields[created_at].required = False
     class Meta:
         model = Skill
         exclude = ('slug',)
@@ -20,10 +22,13 @@ class FormSkill(forms.ModelForm):
         }
         help_texts = {
             'title':'Title the skill',
-            'description':'Describe the skill(is optional)',
+            'description':'Describe the skill',
             'difficulty':'Select the difficulty level.',
             'estimated_hours':'Determine the time it will take you to learn the skill',
             'category':'Which category does the skill belong to?'
+        }
+        widgets = {
+            'difficulty':forms.Select(attrs={'class':'form-select'}),
         }
 
 

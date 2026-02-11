@@ -1,4 +1,4 @@
-{%extend 'base.html'%}
+{%extends 'base.html'%}
 
 {% block title %}Update Category{% endblock %}
 
@@ -8,14 +8,13 @@
         <div class="bg-white p-5 rounded-3 shadow-sm">
             <h1 class="h3 mb-2">Edit Category</h1>
             <p class="text-muted mb-4">Update Category information</p>
-
             <form method="post" novalidate>
                 {% csrf_token %}
                 {{ form }}
-
+                <p>Last updated at: {{category.updated_at|date:"F j, Y, g:i a" }}</p>
                 <div class="d-flex gap-2 pt-3">
                     <button type="submit" class="btn btn-primary flex-grow-1">Save Changes</button>
-                    <a href="{%url 'category_detail' skill.slug%}" class="btn btn-outline-secondary">Cancel</a>
+                    <a href="{%url 'category_detail' category.slug%}" class="btn btn-outline-secondary">Cancel</a>
                 </div>
             </form>
         </div>

@@ -1,6 +1,5 @@
 from django.shortcuts import render,redirect
 from skills.models import Skill
-from django.db.models import Count
 from skills.forms import FormSkill,SearchForm
 from django.shortcuts import get_object_or_404
 from django.http import HttpRequest, HttpResponse
@@ -9,7 +8,7 @@ def create_skill(request:HttpRequest):
     form = FormSkill(request.POST or None)
     if request.method == 'POST' and form.is_valid():
         form.save()
-        return redirect('home')
+        return redirect('skill_list')
     context = {'form':form}
     return render(request,'skills/skill_create.html',context)
 def update_skill(request:HttpRequest,id):
@@ -17,7 +16,7 @@ def update_skill(request:HttpRequest,id):
     form = FormSkill(request.POST or None,instance = skill)
     if request.method == 'POST' and form.is_valid():
         form.save()
-        return redirect('home')
+        return redirect('skill_list')
     context = {'form':form,'skill':skill}
     return render(request,'skills/skill_update.html',context)
 def delete_skill(request:HttpRequest,id):
@@ -25,7 +24,7 @@ def delete_skill(request:HttpRequest,id):
     form = FormSkill(instance=skill)
     if request.method == 'POST':
         skill.delete()
-        return redirect('home')
+        return redirect('skill_list')
     context = {'form':form,'skill':skill}
     return render(request,'skills/skill_delete_confirm.html',context)
 def skill_list(request:HttpRequest):
