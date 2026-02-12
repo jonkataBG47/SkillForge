@@ -147,4 +147,4 @@ Open:
 1. Add `requirements.txt` or `pyproject.toml` for reproducible setup.
 2. Add automated tests for core CRUD and validation flows.
 3. Add `.env`-based configuration for secrets and DB settings.
-4. Add acount sistem for the better experience
+4. Add acount system for the better experience.
