@@ -11,6 +11,11 @@
         </div>
         <a href="{%url 'create_resource'%}" class="btn btn-primary">+ Create New Resource</a>
     </div>
+    <form method="get" class="mb-4">
+        <div class="input-group">
+            {{form.query}}
+            <button class="btn btn-outline-secondary" type="submit"><i class="bi bi-search"></i></button>
+        </div>
     <div class="row g-4">
         {%for resource in resources%}
         <div class="col-md-6 col-lg-4">
