@@ -1,7 +1,5 @@
 from skills.models import Skill
 from django import forms
-class SearchForm(forms.Form):
-    query = forms.CharField(max_length=100,label='Search',required=False)
 class FormSkill(forms.ModelForm):
     #created_at = forms.DateTimeField(required=False,disabled=True)
     def __init__(self, *args, **kwargs):

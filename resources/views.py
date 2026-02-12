@@ -27,12 +27,12 @@ def delete_resource(request:HttpRequest,id):
     context = {'form':form,'resource':resource}
     return render(request,'resources/resource_delete_confirm.html',context)
 def resource_list(request:HttpRequest):
-    resources = Resource.objects.all().order_by('-created_at','title')
+    resources = Resource.objects.all().order_by('-updated_at','title')
     context = {'resources':resources}
     return render(request,'resources/resource_list.html',context)
 def resource_detail(request:HttpRequest,slug):
     resource = get_object_or_404(Resource,slug=slug)
-    skills = resource.skills.all().order_by('-created_at','title')
+    skills = resource.skills.all().order_by('-updated_at','title')
     context = {'resource':resource,'skills':skills}
     return render(request,'resources/resource_detail.html',context)
 

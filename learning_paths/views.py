@@ -4,6 +4,7 @@ from django.db.models import Count
 from learning_paths.forms import FormLearningPaths
 from django.shortcuts import get_object_or_404
 from django.http import HttpRequest, HttpResponse
+from core.forms import SearchForm
 def create_path(request:HttpRequest):
     form = FormLearningPaths(request.POST or None)
     if request.method == 'POST' and form.is_valid():
@@ -28,8 +29,12 @@ def delete_path(request:HttpRequest,id):
     context = {'form':form,'path':path}
     return render(request,'learning_paths/path_delete_confirm.html',context)
 def path_list(request:HttpRequest):
-    paths = LearningPath.objects.all().order_by('-created_at','title')
-    context = {'paths':paths}
+    form = SearchForm(request.GET or None)
+    path = LearningPath.objects.all().order_by('-updated_at','title')
+    if request.method == 'GET' and form.is_valid():
+        query = form.cleaned_data['query']
+        path = LearningPath.objects.filter(title__icontains=query).order_by('-updated_at','title')
+    context = {'form':form,'path':path}
     return render(request,'learning_paths/path_list.html',context)
 def path_detail(request:HttpRequest,slug):
     path = get_object_or_404(LearningPath.objects.annotate(count_skills = Count('skills')),slug=slug)
