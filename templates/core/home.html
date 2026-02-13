@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load custom_extras %}
 
 {% block title %}Home - SkillForge{% endblock %}
 
@@ -80,12 +81,12 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-start mb-3">
                         <h5 class="card-title fw-bold mb-0">{{skill.title}}</h5>
-                        <span class="badge badge-custom">{{skill.difficulty}}</span>
+                        <span class="badge {% difficulty_badge_class skill.difficulty %}">{{skill.difficulty}}</span>
                     </div>
                     <p class="card-text text-muted small mb-3">{{skill.description|truncatewords:15}}</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <small class="text-muted">
-                            <i class="bi bi-clock"></i> {{skill.estimated_hours}} hrs
+                            <i class="bi bi-clock"></i> {{skill.estimated_hours}} hrs ({{ skill.estimated_hours|hours_to_days }} days)
                         </small>
                         <small class="text-muted">
                             <i class="bi bi-tag"></i> {{skill.category.name}}

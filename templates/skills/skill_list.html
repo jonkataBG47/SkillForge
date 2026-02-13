@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load custom_extras %}
 
 {% block title %}Skills{% endblock %}
 
@@ -19,6 +20,7 @@
             {{form.query}}
             <button class="btn btn-outline-secondary" type="submit"><i class="bi bi-search"></i></button>
         </div>
+    </form>
     <div class="row g-4">
         {%for skill in skills%}
         <div class="col-md-6 col-lg-4">
@@ -28,7 +30,7 @@
                     <p class="card-text text-muted small mb-3">{{skill.description}}</p>
                     <div class="d-flex justify-content-between align-items-center mb-3">
                     <span class="badge bg-light text-dark">{{skill.category.name}}</span>
-                     <small class="text-muted">{{skill.estimated_hours}}</small>
+                     <small class="text-muted">{{skill.estimated_hours}}h / {{ skill.estimated_hours|hours_to_days }}d</small>
                     </div>
                 </div>
                 <div class="card-footer bg-white border-top-0">

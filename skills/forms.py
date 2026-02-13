@@ -1,12 +1,9 @@
 from skills.models import Skill
 from django import forms
 class FormSkill(forms.ModelForm):
-    #created_at = forms.DateTimeField(required=False,disabled=True)
+    created_at = forms.DateTimeField(required=False,disabled=True,widget=forms.DateTimeInput(attrs={'class':'form-control', 'placeholder':'Created at(is auto generated)'}))
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # for created_at in self.fields:
-        #     self.fields[created_at].widget.attrs['readonly'] = 'readonly'
-        #     self.fields[created_at].required = False
     class Meta:
         model = Skill
         exclude = ('slug',)
@@ -26,7 +23,18 @@ class FormSkill(forms.ModelForm):
             'category':'Which category does the skill belong to?'
         }
         widgets = {
-            'difficulty':forms.Select(attrs={'class':'form-select'}),
+            'difficulty':forms.Select(attrs={'class':'form-select','placeholder':'Select the difficulty level'}),
+            'category':forms.Select(attrs={'class':'form-select','placeholder':'Select the category'}),
+            'estimated_hours':forms.NumberInput(attrs={'class':'form-control','placeholder':'Determine the time it will take you to learn the skill'}),
+            'title':forms.TextInput(attrs={'class':'form-control','placeholder':'Title the skill'}),
+            'description':forms.Textarea(attrs={'class':'form-control','placeholder':'Describe the skill'}),
+        }
+        labels = {
+            'title':'Title',
+            'description':'Description',
+            'difficulty':'Difficulty',
+            'estimated_hours':'Estimated Hours',
+            'category':'Category'
         }
 
 

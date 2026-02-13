@@ -1,6 +1,7 @@
 from django import forms
 from category.models import Category
 class FormCategory(forms.ModelForm):
+    created_at = forms.DateTimeField(required=False,disabled=True,widget=forms.DateTimeInput(attrs={'class':'form-control', 'placeholder':'Created at(is auto generated)'}))
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
     class Meta:
@@ -12,5 +13,10 @@ class FormCategory(forms.ModelForm):
                     'unique':'A skill with this title already exists'},
         }
         widgets = {
-            'description':forms.Textarea(attrs={'rows':4}),
+            'description':forms.Textarea(attrs={'rows':4, 'class':'form-control','placeholder':'Describe the category(is optional)'}),
+            'name':forms.TextInput(attrs={'class':'form-control','placeholder':'Give the category a name.'}),
+        }
+        labels = {
+            'name':'Name',
+            'description':'Description',
         }

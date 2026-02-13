@@ -7,4 +7,6 @@ def home(request:HttpRequest):
     return render(request,'core/home.html',context)
 def about(request:HttpRequest):
     return render(request,'core/about.html')
+def custom_404(request:HttpRequest, exception):
+    return render(request,'404.html', status=404)
 

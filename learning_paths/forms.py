@@ -1,11 +1,10 @@
 from django import forms
 from learning_paths.models import LearningPath
 class FormLearningPaths(forms.ModelForm):
+    created_at = forms.DateTimeField(required=False,disabled=True,widget=forms.DateTimeInput(attrs={'class':'form-control', 'placeholder':'Created at(is auto generated)'}))
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # for created_at in self.fields:
-        #     self.fields[created_at].widget.attrs['readonly'] = 'readonly'
-
+        
     class Meta:
         model = LearningPath
         exclude = ('slug',)
@@ -22,5 +21,12 @@ class FormLearningPaths(forms.ModelForm):
             'skills': {'required':'This field is required.'}
         }
         widgets = {
-            'skills':forms.CheckboxSelectMultiple,
+            'skills':forms.CheckboxSelectMultiple(),
+            'title':forms.TextInput(attrs={'class':'form-control','placeholder':'Title the the learning path'}),
+            'description':forms.Textarea(attrs={'class':'form-control','placeholder':'Write your plan'}),
+        }
+        labels = {
+            'title':'Title',
+            'description':'Description',
+            'skills':'Skills'
         }

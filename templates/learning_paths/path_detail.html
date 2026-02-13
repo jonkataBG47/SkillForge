@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load custom_extras %}
 
 {% block title %}Path Details{% endblock %}
 
@@ -49,11 +50,11 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-start mb-3">
                             <h5 class="card-title fw-bold mb-0">{{skill.title}}</h5>
-                            <span class="badge bg-success">Intermediate</span>
+                            <span class="badge {% difficulty_badge_class skill.difficulty %}">{{ skill.difficulty }}</span>
                         </div>
                         <p class="card-text text-muted small mb-3">{{skill.description}}</p>
                         <small class="text-muted">
-                            <i class="bi bi-clock"></i> {{skill.estimeted_hours}} hours
+                            <i class="bi bi-clock"></i> {{skill.estimated_hours}}h ({{ skill.estimated_hours|hours_to_days }} days)
                         </small>
                     </div>
                     <div class="card-footer bg-transparent border-top">
