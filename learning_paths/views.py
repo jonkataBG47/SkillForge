@@ -33,7 +33,7 @@ def path_list(request:HttpRequest):
     path = LearningPath.objects.all().order_by('-updated_at','title')
     if request.method == 'GET' and form.is_valid():
         query = form.cleaned_data['query']
-        path = LearningPath.objects.filter(title__icontains=query).order_by('-updated_at','title')
+        path = LearningPath.objects.filter(title__icontains=query)
     context = {'form':form,'path':path}
     return render(request,'learning_paths/path_list.html',context)
 def path_detail(request:HttpRequest,slug):

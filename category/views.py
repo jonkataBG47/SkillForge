@@ -33,7 +33,7 @@ def category_list(request:HttpRequest):
     categories = Category.objects.annotate(count_skill=Count('skills')).order_by('-updated_at','name')
     if request.method == 'GET' and form.is_valid():
         query = form.cleaned_data['query']
-        categories = Category.objects.annotate(count_skill=Count('skills')).filter(name__icontains=query).order_by('-updated_at','name')
+        categories = Category.objects.annotate(count_skill=Count('skills')).filter(name__icontains=query)
     context = {'form':form,'categories':categories}
     return render(request,'category/category_list.html',context)
 def category_detail(request:HttpResponse,slug):
