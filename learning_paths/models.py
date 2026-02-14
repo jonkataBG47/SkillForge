@@ -9,7 +9,7 @@ class LearningPath(Requerment):
     description = models.TextField(validators=[blank_validator])
     skills = models.ManyToManyField(Skill, related_name='learning_paths')
     def __str__(self):
-        return f'{self.title} - {self.description}'
+        return f'{self.title}'
     def save(self, *args, **kwargs):
         self.slug = slugify(f'{self.title}')
         super().save(*args, **kwargs)

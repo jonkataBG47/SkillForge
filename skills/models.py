@@ -17,7 +17,7 @@ class Skill(Requerment):
     category = models.ForeignKey(Category,on_delete=models.CASCADE,related_name='skills')
 
     def __str__(self):
-        return f'{self.title} - {self.description}'
+        return f'{self.title}'
     def save(self, *args, **kwargs):
         self.slug = slugify(f'{self.title}')
         super().save(*args, **kwargs)

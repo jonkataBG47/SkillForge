@@ -24,6 +24,11 @@
                     <dt class="col-sm-3 text-muted small text-uppercase">Category</dt>
                     <dd class="col-sm-9 mb-3">{{skill.category.name}}</dd>
 
+                    <dt class="col-sm-3 text-muted small text-uppercase">Difficulty</dt>
+                    <dd class="col-sm-9 mb-3">
+                        <span class="badge {% difficulty_badge_class skill.difficulty %}">{{skill.difficulty}}</span>
+                    </dd>
+
                     <dt class="col-sm-3 text-muted small text-uppercase">Estimated Hours</dt>
                     <dd class="col-sm-9 mb-0">{{skill.estimated_hours}}h ({{ skill.estimated_hours|hours_to_days }} days)</dd>
                 </dl>

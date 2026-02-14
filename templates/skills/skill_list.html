@@ -29,7 +29,10 @@
                     <h5 class="card-title fw-bold mb-2">{{skill.title}}</h5>
                     <p class="card-text text-muted small mb-3">{{skill.description}}</p>
                     <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="d-flex gap-2">
                     <span class="badge bg-light text-dark">{{skill.category.name}}</span>
+                    <span class="badge {% difficulty_badge_class skill.difficulty %}">{{skill.difficulty}}</span>
+                    </div>
                      <small class="text-muted">{{skill.estimated_hours}}h / {{ skill.estimated_hours|hours_to_days }}d</small>
                     </div>
                 </div>

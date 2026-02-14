@@ -14,6 +14,8 @@ class Resource(Requerment):
     resource_type = models.CharField(max_length=100,choices=TypeChoices.choices)
     slug = models.SlugField(editable=False,unique=True,blank=True)
     skills = models.ManyToManyField(Skill,related_name='resources')
+    def __str__(self):
+        return f'{self.title}'
     def save(self, *args, **kwargs):
         self.slug = slugify(f'{self.title} - {self.resource_type}')
         super().save(*args, **kwargs)
