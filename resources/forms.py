@@ -10,7 +10,7 @@ class FormResource(forms.ModelForm):
         help_texts = {
             'title':'Title the resource',
             'url':'Submit the url of resource',
-            'resource_type': 'The type of resourse(Video,Article,Book)',
+            'resource_type': 'The type of resource(Video,Article,Book)',
             'skills': 'The skills for which the resource is:'
         }
         error_messages = {
@@ -19,8 +19,8 @@ class FormResource(forms.ModelForm):
             'resource_type':{'required':'This field is required.'}
         }
         widgets = {
-            'skills':forms.CheckboxSelectMultiple,
-            'resource_type':forms.Select(attrs={'class':'form-select','placeholder':'Select the type of resourse'}),
+            'skills':forms.CheckboxSelectMultiple(),
+            'resource_type':forms.Select(attrs={'class':'form-select','placeholder':'Select the type of resource'}),
             'url':forms.URLInput(attrs={'class':'form-control','placeholder':'Submit the url of resource'}),
             'title':forms.TextInput(attrs={'class':'form-control','placeholder':'Title the resource'}),
         }

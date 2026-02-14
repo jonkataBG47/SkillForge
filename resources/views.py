@@ -1,8 +1,7 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from resources.models import Resource
-from django.db.models import Count
 from resources.forms import FormResource
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest
 from core.forms import SearchForm
 def create_resource(request:HttpRequest):
     form = FormResource(request.POST or None)

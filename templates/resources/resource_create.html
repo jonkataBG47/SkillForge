@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 
-{% block title %}Create Learning Path{% endblock %}
+{% block title %}Create Resource{% endblock %}
 
 {% block content %}
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <div class="bg-white p-5 rounded-3 shadow-sm">
-                <h1 class="h2 fw-bold mb-4">Create New Resourse</h1>
+                <h1 class="h2 fw-bold mb-4">Create New Resource</h1>
                 <form method="post" novalidate>
                     {% csrf_token %}
                     {{ form }}
-                    <button type="submit" class="btn btn-primary flex-grow-1">Create resourse</button>
+                    <button type="submit" class="btn btn-primary flex-grow-1">Create Resource</button>
                     <a href="{%url 'resource_list'%}" class="btn btn-outline-secondary">Cancel</a>
                 </form>
             </div>

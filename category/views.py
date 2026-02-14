@@ -4,7 +4,6 @@ from django.db.models import Count
 from category.forms import FormCategory
 from django.http import HttpRequest, HttpResponse
 from core.forms import SearchForm
-from django.db.models import Q
 def create_category(request:HttpRequest):
     form = FormCategory(request.POST or None)
     if request.method == 'POST' and form.is_valid():
@@ -36,7 +35,7 @@ def category_list(request:HttpRequest):
         categories = Category.objects.annotate(count_skill=Count('skills')).filter(name__icontains=query)
     context = {'form':form,'categories':categories}
     return render(request,'category/category_list.html',context)
-def category_detail(request:HttpResponse,slug):
+def category_detail(request:HttpRequest,slug):
     category = get_object_or_404(Category.objects.annotate(count_skill=Count('skills')).prefetch_related('skills'),slug=slug)
     skills = category.skills.all().order_by('-updated_at','title')
     context = {'category':category,'skills':skills}

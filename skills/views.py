@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from skills.models import Skill
 from skills.forms import FormSkill
 from django.shortcuts import get_object_or_404
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest
 from django.db.models import Q
 from core.forms import SearchForm
 def create_skill(request:HttpRequest):

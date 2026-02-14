@@ -44,7 +44,7 @@ SkillForge/
 |- static/              # source static assets
 |- staticfiles/         # collected static assets
 |- manage.py
-`- requerments.txt
+`- requirements.txt
 ```
 
 ## Environment / Local Configuration
@@ -112,7 +112,7 @@ source .venv/bin/activate
 ### 3. Install dependencies
 
 ```bash
-pip install -r requerments.txt
+pip install -r requirements.txt
 ```
 
 ### 4. Apply migrations

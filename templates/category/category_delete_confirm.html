@@ -15,13 +15,13 @@
                     <strong>This action cannot be undone</strong>
                 </div>
 
-                <h2 class="h4 mb-3">Delete Skill?</h2>
-                <p class="text-muted mb-4">Are you sure you want to delete {{category.title}}? This will remove the skill from the database permanently.</p>
+                <h2 class="h4 mb-3">Delete Category?</h2>
+                <p class="text-muted mb-4">Are you sure you want to delete {{category.name}}? This will remove the category from the database permanently.</p>
 
                 <form method="post" class="mb-0">
                     {% csrf_token %}
                     <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-danger">Yes, Delete Skill</button>
+                        <button type="submit" class="btn btn-danger">Yes, Delete Category</button>
                         <a href="{%url 'category_detail' category.slug%}" class="btn btn-outline-secondary">Cancel</a>
                     </div>
                 </form>

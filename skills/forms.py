@@ -10,10 +10,10 @@ class FormSkill(forms.ModelForm):
         error_messages = {
             'title':{'max_length':'The title max_contains 255 letters',
                      'required':'This field is required.',
-                    'unique':'The category already exists'},
+                    'unique':'This title of skill already exists'},
             'difficulty':{'required':'This field is required.'},
             'estimated_hours':{'required':'This field is required.',},
-            'category':{'required':'This field is required.!'}
+            'category':{'required':'This field is required!'}
         }
         help_texts = {
             'title':'Title the skill',

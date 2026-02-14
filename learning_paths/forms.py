@@ -9,9 +9,9 @@ class FormLearningPaths(forms.ModelForm):
         model = LearningPath
         exclude = ('slug',)
         help_texts ={
-            'title':'Title the the learning path',
+            'title':'Title the learning path',
             'description':'Write your plan',
-            'skills':'The skills for which the learning paths is:',
+            'skills':'The skills for which learning paths is:',
         }
         error_messages = {
             'title':{'max_length':'The title max_contains 255 letters',
@@ -22,7 +22,7 @@ class FormLearningPaths(forms.ModelForm):
         }
         widgets = {
             'skills':forms.CheckboxSelectMultiple(),
-            'title':forms.TextInput(attrs={'class':'form-control','placeholder':'Title the the learning path'}),
+            'title':forms.TextInput(attrs={'class':'form-control','placeholder':'Title the learning path'}),
             'description':forms.Textarea(attrs={'class':'form-control','placeholder':'Write your plan'}),
         }
         labels = {
