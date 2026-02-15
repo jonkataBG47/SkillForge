@@ -23,8 +23,8 @@ class FormSkill(forms.ModelForm):
             'category':'Which category does the skill belong to?'
         }
         widgets = {
-            'difficulty':forms.Select(attrs={'class':'form-select','placeholder':'Select the difficulty level'}),
-            'category':forms.Select(attrs={'class':'form-select','placeholder':'Select the category'}),
+            'difficulty':forms.Select(attrs={'class':'form-select'}),
+            'category':forms.Select(attrs={'class':'form-select'}),
             'estimated_hours':forms.NumberInput(attrs={'class':'form-control','placeholder':'Determine the time it will take you to learn the skill'}),
             'title':forms.TextInput(attrs={'class':'form-control','placeholder':'Title the skill'}),
             'description':forms.Textarea(attrs={'class':'form-control','placeholder':'Describe the skill'}),

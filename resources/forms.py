@@ -20,7 +20,7 @@ class FormResource(forms.ModelForm):
         }
         widgets = {
             'skills':forms.CheckboxSelectMultiple(),
-            'resource_type':forms.Select(attrs={'class':'form-select','placeholder':'Select the type of resource'}),
+            'resource_type':forms.Select(attrs={'class':'form-select'}),
             'url':forms.URLInput(attrs={'class':'form-control','placeholder':'Submit the url of resource'}),
             'title':forms.TextInput(attrs={'class':'form-control','placeholder':'Title the resource'}),
         }
