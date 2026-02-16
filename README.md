@@ -89,7 +89,7 @@ Before running the project, make sure your PostgreSQL server has:
 ### 1. Clone
 
 ```bash
-git clone <your-public-repo-url>
+git clone https://github.com/jonkataBG47/SkillForge.git
 cd SkillForge
 ```
 
