@@ -2,10 +2,10 @@ from django.urls import path,include
 from skills import views
 urlpatterns = [
     path('skills/',include([
-        path('',views.skill_list, name='skill_list'),
-        path('create/', views.create_skill, name='create_skill'),
-        path('<int:id>/update/', views.update_skill, name='update_skill'),
-        path('<int:id>/delete/', views.delete_skill, name='delete_skill'),
-        path('<slug:slug>/', views.skill_detail, name='skill_detail')
+        path('',views.SkillListView.as_view(), name='skill_list'),
+        path('create/', views.CreateSkillView.as_view(), name='create_skill'),
+        path('<int:pk>/update/', views.UpdateSkillView.as_view(), name='update_skill'),
+        path('<int:pk>/delete/', views.DeleteSkillView.as_view(), name='delete_skill'),
+        path('<slug:slug>/', views.SkillDetailView.as_view(), name='skill_detail')
     ])),
 ]

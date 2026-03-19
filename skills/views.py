@@ -1,45 +1,59 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render,redirect
+from django.views.generic import CreateView, UpdateView, DeleteView, ListView, DetailView
 from skills.models import Skill
 from skills.forms import FormSkill
-from django.shortcuts import get_object_or_404
-from django.http import HttpRequest
 from django.db.models import Q
 from core.forms import SearchForm
-def create_skill(request:HttpRequest):
-    form = FormSkill(request.POST or None)
-    if request.method == 'POST' and form.is_valid():
-        form.save()
-        return redirect('skill_list')
-    context = {'form':form}
-    return render(request,'skills/skill_create.html',context)
-def update_skill(request:HttpRequest,id):
-    skill = get_object_or_404(Skill,id=id)
-    form = FormSkill(request.POST or None,instance = skill)
-    if request.method == 'POST' and form.is_valid():
-        form.save()
-        return redirect('skill_list')
-    context = {'form':form,'skill':skill}
-    return render(request,'skills/skill_update.html',context)
-def delete_skill(request:HttpRequest,id):
-    skill = get_object_or_404(Skill,id=id)
-    form = FormSkill(instance=skill)
-    if request.method == 'POST':
-        skill.delete()
-        return redirect('skill_list')
-    context = {'form':form,'skill':skill}
-    return render(request,'skills/skill_delete_confirm.html',context)
-def skill_list(request:HttpRequest):
-    form = SearchForm(request.GET or None)
-    skills = Skill.objects.all().order_by('-updated_at','title')
-    if request.method == 'GET' and form.is_valid():
-        query = form.cleaned_data['query']
-        filters = Q(title__icontains=query) | Q(category__name__icontains = query)
-        skills = Skill.objects.filter(filters)
-    context = {'form':form,'skills':skills}
-    return render(request,'skills/skill_list.html',context)
-def skill_detail(request:HttpRequest,slug):
-    skill = get_object_or_404(Skill.objects.prefetch_related('resources'),slug=slug)
-    resources = skill.resources.all().order_by('-updated_at','title')
-    context = {'skill':skill,'resources':resources}
-    return render(request,'skills/skill_detail.html',context)
+from django.urls import reverse_lazy
+class CreateSkillView(LoginRequiredMixin,CreateView):
+    model = Skill
+    form_class = FormSkill
+    template_name = 'skills/skill_create.html'
+    success_url = reverse_lazy('skill_list')
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+class UpdateSkillView(LoginRequiredMixin,UpdateView):
+    model = Skill
+    form_class = FormSkill
+    template_name = 'skills/skill_update.html'
+    success_url = reverse_lazy('skill_list')
+    def get_queryset(self):
+        return Skill.objects.filter(user=self.request.user)
+class DeleteSkillView(LoginRequiredMixin,DeleteView):
+    model = Skill
+    form_class = FormSkill
+    template_name = 'skills/skill_delete_confirm.html'
+    success_url = reverse_lazy('skill_list')
+    def get_queryset(self):
+        return Skill.objects.filter(user=self.request.user)
+class SkillListView(LoginRequiredMixin,ListView):
+    model = Skill
+    template_name = 'skills/skill_list.html'
+    context_object_name = 'skills'
+    def get_queryset(self):
+        skills = Skill.objects.filter(user=self.request.user).order_by('-updated_at','title')
+        self.form = SearchForm(self.request.GET or None)
+        if self.form.is_valid():
+            query = self.form.cleaned_data['query']
+            filters = Q(title__icontains=query) | Q(category__name__icontains = query)
+            skills = skills.filter(filters)
+        return skills
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = self.form
+        return context
+class SkillDetailView(LoginRequiredMixin,DetailView):
+    model = Skill
+    template_name = 'skills/skill_detail.html'
+    context_object_name = 'skill'
+    slug_field = 'slug'
+    slug_url_kwarg = 'slug'
+    def get_queryset(self):
+        return Skill.objects.filter(user=self.request.user).prefetch_related('resources')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['resources'] = self.object.resources.all().order_by('-updated_at','title')
+        return context
 

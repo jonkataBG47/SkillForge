@@ -27,7 +27,8 @@ urlpatterns = [
     path('', include('learning_paths.urls')),
     path('', include('resources.urls')),
     path('', include('category.urls')),
-]
+    path('', include('accounts.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])

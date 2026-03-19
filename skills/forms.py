@@ -6,7 +6,7 @@ class FormSkill(forms.ModelForm):
         super().__init__(*args, **kwargs)
     class Meta:
         model = Skill
-        exclude = ('slug',)
+        exclude = ('slug','user')
         error_messages = {
             'title':{'max_length':'The title max_contains 255 letters',
                      'required':'This field is required.',
