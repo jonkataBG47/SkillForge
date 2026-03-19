@@ -22,7 +22,7 @@ SkillForge is a Django web application for organizing learning through Skills, R
 - Slug-based detail URLs
 - Shared timestamps via abstract base model (`created_at`, `updated_at`)
 - Custom 404 page
-- Custom template tag/filter usage (`custom_extras`)
+- Custom template tag/filter usage
 
 ## Data Model
 
