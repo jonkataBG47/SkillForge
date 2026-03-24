@@ -1,13 +1,16 @@
 from django import forms
 from learning_paths.models import LearningPath
+from skills.models import Skill
 class FormLearningPaths(forms.ModelForm):
     created_at = forms.DateTimeField(required=False,disabled=True,widget=forms.DateTimeInput(attrs={'class':'form-control', 'placeholder':'Created at(is auto generated)'}))
     def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
-        
+        if user:
+            self.fields['skills'].queryset = Skill.objects.filter(user=user).order_by('-created_at','title')
     class Meta:
         model = LearningPath
-        exclude = ('slug',)
+        exclude = ('slug','user',)
         help_texts ={
             'title':'Title the learning path',
             'description':'Write your plan',

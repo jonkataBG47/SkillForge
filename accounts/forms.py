@@ -7,6 +7,7 @@ class RegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username','email','password1','password2','first_name','last_name','phone_number']
-class LoginForm(AuthenticationForm):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
+class UpdateProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username','email','first_name','last_name','phone_number','image']

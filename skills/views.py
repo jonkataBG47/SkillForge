@@ -14,6 +14,10 @@ class CreateSkillView(LoginRequiredMixin,CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 class UpdateSkillView(LoginRequiredMixin,UpdateView):
     model = Skill
     form_class = FormSkill
@@ -23,7 +27,6 @@ class UpdateSkillView(LoginRequiredMixin,UpdateView):
         return Skill.objects.filter(user=self.request.user)
 class DeleteSkillView(LoginRequiredMixin,DeleteView):
     model = Skill
-    form_class = FormSkill
     template_name = 'skills/skill_delete_confirm.html'
     success_url = reverse_lazy('skill_list')
     def get_queryset(self):

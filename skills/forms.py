@@ -1,9 +1,13 @@
+from category.models import Category
 from skills.models import Skill
 from django import forms
 class FormSkill(forms.ModelForm):
     created_at = forms.DateTimeField(required=False,disabled=True,widget=forms.DateTimeInput(attrs={'class':'form-control', 'placeholder':'Created at(is auto generated)'}))
     def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
+        if user:
+            self.fields['category'].queryset = Category.objects.filter(user=user).order_by('-created_at','name')
     class Meta:
         model = Skill
         exclude = ('slug','user')

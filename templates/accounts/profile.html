@@ -6,6 +6,8 @@
         <div class="card">
             <div class="card-header">
                 <h2 class="text-center">Profile</h2>
+                <button class="btn btn-primary float-right" onclick="window.location.href='{% url 'profile_update' %}'">Edit Profile</button>
+                <button class="btn btn-danger float-right mr-2" onclick="window.location.href='{% url 'profile_delete' %}'">Delete Profile</button>
             </div>
             <div class="card-body">
                 <p><strong>Username:</strong> {{ user.username }}</p>
@@ -13,7 +15,11 @@
                 <p><strong>First Name:</strong> {{ user.first_name }}</p>
                 <p><strong>Last Name:</strong> {{ user.last_name }}</p>
                 <p><strong>Phone Number:</strong> {{ user.phone_number }}</p>
-                <img src="{{ user.image.url}}" alt="Profile Picture" class="img-thumbnail" style="max-width: 200px;">
+                {% if user.image %}
+                <img src="{{ user.image.url}}" alt="Profile Picture" class="img-thumbnail" style="max-width: 150px;">
+                {% else %}
+                <img src = "/media/profile_images/default_profile.jpg" alt = "Default Profile Picture" class="img-thumbnail" style="max-width: 200px;">
+                {% endif %}
             </div>
         </div>
     </div>

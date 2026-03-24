@@ -1,12 +1,16 @@
 from django import forms
 from resources.models import Resource
+from skills.models import Skill
 class FormResource(forms.ModelForm):
     created_at = forms.DateTimeField(required=False,disabled=True,widget=forms.DateTimeInput(attrs={'class':'form-control', 'placeholder':'Created at(is auto generated)'}))
     def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
+        if user:
+            self.fields['skills'].queryset = Skill.objects.filter(user=user).order_by('-created_at','title')
     class Meta:
         model = Resource
-        exclude = ('slug',)
+        exclude = ('slug','user')
         help_texts = {
             'title':'Title the resource',
             'url':'Submit the url of resource',

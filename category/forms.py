@@ -6,11 +6,11 @@ class FormCategory(forms.ModelForm):
         super().__init__(*args, **kwargs)
     class Meta:
         model = Category
-        exclude = ('slug',)
+        exclude = ('slug','user')
         help_texts = {'name':'Give the category a name.','description':'Describe the category(is optional)'}
         error_messages = {
             'name':{'max_length':'The title max_contains 100 letters','required':'This field is required.',
-                    'unique':'A skill with this title already exists'},
+                    'unique':'A category with this title already exists'},
         }
         widgets = {
             'description':forms.Textarea(attrs={'rows':4, 'class':'form-control','placeholder':'Describe the category(is optional)'}),
