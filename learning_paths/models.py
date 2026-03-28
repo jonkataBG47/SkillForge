@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model
 from unidecode import unidecode
 User = get_user_model()
 class LearningPath(Requerment):
-    title = models.CharField(max_length=255,unique=True,validators=[blank_validator])
+    title = models.CharField(max_length=255,validators=[blank_validator])
     slug = models.SlugField(unique=True, blank=True, editable=False)
     description = models.TextField(validators=[blank_validator])
     skills = models.ManyToManyField(Skill, related_name='learning_paths')

@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from unidecode import unidecode
 User = get_user_model()
 class Category(Requerment):
-    name = models.CharField(max_length=100,unique=True,validators=[blank_validator])
+    name = models.CharField(max_length=100,validators=[blank_validator])
     slug = models.SlugField(unique=True,blank=True,editable=False)
     description = models.TextField(blank=True,null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='category')

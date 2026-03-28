@@ -12,7 +12,7 @@ class Resource(Requerment):
         ARTICLE = 'Article', 'Article'
         BOOK = 'Book', 'Book'
         Other = 'Other','Other'
-    title = models.CharField(max_length=100,unique=True,validators=[blank_validator])
+    title = models.CharField(max_length=100,validators=[blank_validator])
     url = models.URLField()
     resource_type = models.CharField(max_length=100,choices=TypeChoices.choices)
     slug = models.SlugField(editable=False,unique=True,blank=True)
