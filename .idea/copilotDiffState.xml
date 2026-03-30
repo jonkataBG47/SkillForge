@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CopilotDiffPersistence">
+    <option name="pendingDiffs">
+      <map>
+        <entry key="/signals (snapshot).py">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="/signals (snapshot).py" />
+              <option name="originalContent" value="from django.db.models.signals import post_save&#10;from django.dispatch import receiver&#10;from accounts.models import SkillForgeUser&#10;from accounts.tasks import send_register_email&#10;&#10;@receiver(post_save, sender=SkillForgeUser)&#10;def send_welcome_email(sender, instance, created, **kwargs):&#10;    if created:&#10;        send_register_email.delay(instance.email, instance.username)&#10;" />
+              <option name="updatedContent" value="from django.db.models.signals import post_save&#10;from django.dispatch import receiver&#10;from accounts.models import SkillForgeUser&#10;from accounts.tasks import send_register_email&#10;&#10;@receiver(post_save, sender=SkillForgeUser)&#10;def send_welcome_email(sender, instance, created, **kwargs):&#10;    if created:&#10;        send_register_email(instance.email, instance.username)" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

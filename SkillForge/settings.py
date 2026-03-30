@@ -48,9 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'widget_tweaks',
     'celery',
-    'thumbnailer',
 ] + Project_apps
 
 MIDDLEWARE = [
@@ -91,7 +89,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": os.getenv("DB_NAME", "skillforge"),
         "USER": os.getenv("DB_USER", "postgres"),
-        "PASSWORD": os.getenv("DB_PASSWORD", "joan26112008"),
+        "PASSWORD": os.getenv("DB_PASSWORD", "admin"),
         "HOST": os.getenv("DB_HOST", "127.0.0.1"),
         "PORT": os.getenv("DB_PORT", "5432"),
     }
@@ -147,3 +145,12 @@ CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+EMAIL_HOST_USER = 'sorcerer13151412@gmail.com'
+EMAIL_HOST_PASSWORD = 'onxe uvuq yqdp cnys'
+
+DEFAULT_FROM_EMAIL = 'SkillForge sorcerer13151412@gmail.com'
