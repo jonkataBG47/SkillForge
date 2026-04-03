@@ -1,8 +1,10 @@
+from django.contrib import messages
 from django.contrib.auth import login, get_user_model
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
+from django.views.generic import CreateView, DetailView, UpdateView, DeleteView, FormView
 
 from accounts.forms import RegistrationForm, UpdateProfileForm
 
@@ -32,9 +34,19 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('profile')
     def get_object(self, queryset=None):
         return self.request.user
-class DeleteProfileView(LoginRequiredMixin, DeleteView):
-    model = User
+class DeleteProfileView(LoginRequiredMixin,FormView, DeleteView):
     template_name = 'accounts/profile_confirm_delete.html'
     success_url = reverse_lazy('home')
+    form_class = AuthenticationForm
     def get_object(self, queryset=None):
         return self.request.user
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['data'] = self.request.POST or None
+        kwargs['request'] = self.request
+        return kwargs
+    def form_valid(self, form):
+        user = self.get_object()
+        user.delete()
+        messages.success(self.request, 'Profile Deleted Successfully')
+        return super().form_valid(form)

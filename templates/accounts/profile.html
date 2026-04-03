@@ -12,9 +12,6 @@
             <div class="card-body">
                 <p><strong>Username:</strong> {{ user.username }}</p>
                 <p><strong>Email:</strong> {{ user.email }}</p>
-                <p><strong>First Name:</strong> {{ user.first_name }}</p>
-                <p><strong>Last Name:</strong> {{ user.last_name }}</p>
-                <p><strong>Phone Number:</strong> {{ user.phone_number }}</p>
                 {% if user.image %}
                 <img src="{{ user.image.url}}" alt="Profile Picture" class="img-thumbnail" style="max-width: 150px;">
                 {% else %}
