@@ -1,112 +1,104 @@
 # SkillForge
 
-SkillForge is a Django web application for organizing learning through Skills, Resources, Learning Paths, and Categories.
+SkillForge is a Django web application for planning and organizing learning content. Users can create categories, add skills, attach learning resources, combine skills into learning paths, and manage everything from a personal profile.
 
-## Overview
+## What the project includes
 
-- Framework: Django 6
-- Database: PostgreSQL
-- Template engine: Django Templates
-- Styling: Bootstrap + custom CSS
-- Authentication: intentionally not implemented (not required for this project)
+- User registration, login, logout, profile update, and profile deletion
+- Full CRUD for categories, skills, resources, and learning paths
+- Per-user content ownership
+- Search and detail pages with slug-based URLs
+- Profile image upload support
+- Auth-protected REST API endpoint for skills
+- Celery task for registration email sending
+- Shared timestamp base model for all main content types
+- Custom 404 page and reusable template partials
 
-## Core Features
+## Tech stack
 
-- Full CRUD for:
-  - Skills (`/skills/`)
-  - Resources (`/resources/`)
-  - Learning Paths (`/paths/`)
-  - Categories (`/categories/`)
-- Search on list pages
-- Detail pages with related objects
-- Slug-based detail URLs
-- Shared timestamps via abstract base model (`created_at`, `updated_at`)
-- Custom 404 page
-- Custom template tag/filter usage
+- Python
+- Django 6
+- Django REST Framework
+- PostgreSQL
+- Celery
+- Redis
+- Pillow
+- Django Templates
+- Custom CSS
 
-## Data Model
+## Main modules
 
-- `Category` 1 -> N `Skill` (ForeignKey)
-- `Skill` M <-> N `Resource` (ManyToMany)
-- `Skill` M <-> N `LearningPath` (ManyToMany)
+- `accounts` - custom user model, authentication, profile management
+- `category` - category CRUD
+- `skills` - skill CRUD and API endpoint
+- `resources` - resource CRUD and skill relationships
+- `learning_paths` - learning path CRUD and skill grouping
+- `core` - home, about, validators, base model, shared utilities
 
-## Project Structure
+## Data model summary
+
+- `SkillForgeUser` extends Django `AbstractUser` and supports profile images
+- `Category` belongs to a user
+- `Skill` belongs to a category and a user
+- `Resource` belongs to a user and can be linked to multiple skills
+- `LearningPath` belongs to a user and can include multiple skills
+- All main content models inherit shared `created_at` and `updated_at` fields
+
+## Main routes
+
+- `/` - home page
+- `/about/` - about page
+- `/registration/` - user registration
+- `/login/` - login
+- `/logout/` - logout
+- `/profile/` - user profile
+- `/skills/` - skill management
+- `/resources/` - resource management
+- `/paths/` - learning path management
+- `/categories/` - category management
+- `/api/skills/` - authenticated skills API
+- `/admin/` - Django admin
+
+## Project structure
 
 ```text
 SkillForge/
-|- SkillForge/          # settings, root urls, wsgi/asgi
-|- core/                # home/about views, shared forms, validators
-|- skills/              # skills domain
-|- resources/           # resources domain
-|- learning_paths/      # learning paths domain
-|- category/            # categories domain + custom template tags
-|- templates/           # global and app templates
-|- static/              # source static assets
-|- staticfiles/         # collected static assets
+|- SkillForge/        # project settings, root urls, celery, asgi/wsgi
+|- accounts/          # authentication and profile management
+|- category/          # category app
+|- core/              # shared logic, validators, base model, pages
+|- learning_paths/    # learning path app
+|- resources/         # resource app
+|- skills/            # skill app and API
+|- templates/         # global and app templates
+|- static/            # source static files
+|- media/             # uploaded profile images
 |- manage.py
 `- requirements.txt
 ```
+## Local setup
 
-## Environment / Local Configuration
-
-The project uses PostgreSQL with these settings in `SkillForge/settings.py`:
-
-- `ENGINE`: `django.db.backends.postgresql`
-- `NAME`: `skillforge`
-- `USER`: `postgres`
-- `PASSWORD`: set in local `settings.py`
-- `HOST`: `127.0.0.1`
-- `PORT`: `5432`
-
-## Environment Variables
-
-Set these variables locally before running the project:
-
-- `DB_NAME=skillforge`
-- `DB_USER=postgres`
-- `DB_PASSWORD=your_password`
-- `DB_HOST=127.0.0.1`
-- `DB_PORT=5432`
-
-Windows (PowerShell) example:
-
-```powershell
-$env:DB_NAME="skillforge"
-$env:DB_USER="postgres"
-$env:DB_PASSWORD="your_password"
-$env:DB_HOST="127.0.0.1"
-$env:DB_PORT="5432"
-```
-
-Before running the project, make sure your PostgreSQL server has:
-
-1. A database named `skillforge`
-2. A PostgreSQL user matching the configured credentials
-3. Access rights for that user to the `skillforge` database
-
-## Run Locally
-
-### 1. Clone
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/jonkataBG47/SkillForge.git
 cd SkillForge
 ```
 
-### 2. Create virtual environment
+### 2. Create and activate a virtual environment
 
-Windows (PowerShell):
+Windows PowerShell:
 
 ```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
+python -m venv venv
+.\venv\Scripts\Activate.ps1
 ```
 
 macOS/Linux:
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
+python -m venv venv
+source venv/bin/activate
 ```
 
 ### 3. Install dependencies
@@ -115,34 +107,59 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 4. Apply migrations
+### 4. Create the PostgreSQL database
+
+Create a database named `skillforge` and make sure the configured PostgreSQL user has access to it.
+
+### 5. Apply migrations
 
 ```bash
 python manage.py migrate
 ```
 
-### 5. Run development server
+### 6. Create an admin user
+
+```bash
+python manage.py createsuperuser
+```
+
+### 7. Run the development server
 
 ```bash
 python manage.py runserver
 ```
 
-Open:
+Open `http://127.0.0.1:8000/`.
 
-- App: `http://127.0.0.1:8000/`
-- Admin: `http://127.0.0.1:8000/admin/`
+## Optional services
 
-## Main Routes
+If you want Celery tasks such as registration email sending to run asynchronously, start Redis and a Celery worker:
 
-- `/` - Home
-- `/about/` - About
-- `/skills/` - Skills module
-- `/resources/` - Resources module
-- `/paths/` - Learning Paths module
-- `/categories/` - Categories module
+```bash
+celery -A SkillForge worker --loglevel=info
+```
+
+If you do not want to run a worker during local development, set `CELERY_TASK_ALWAYS_EAGER=True`.
+
+## API
+
+The project currently exposes one API endpoint:
+
+- `GET /api/skills/` - list the authenticated user's skills
+- `POST /api/skills/` - create a skill for the authenticated user
+
+Authentication is required for both operations.
+
+## Testing
+
+Run the test suite with:
+
+```bash
+python manage.py test
+```
 
 ## Notes
 
-- All pages are accessible from global navigation and footer links.
-- Deletion operations use confirmation pages.
-- The project includes built-in and custom template functionality.
+- Slugs are generated automatically with `unidecode`, which helps transliterate non-Latin titles.
+- Uploaded profile images are stored in `media/profile_images/`.
+- Static files are served from `static/`, and collected output goes to `staticfiles/`.
