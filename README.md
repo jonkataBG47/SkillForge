@@ -1,18 +1,19 @@
 # SkillForge
 
-SkillForge is a Django web application for planning and organizing learning content. Users can create categories, add skills, attach learning resources, combine skills into learning paths, and manage everything from a personal profile.
+SkillForge is a Django web application for organizing personal learning. Each user can create categories, track skills, attach learning resources, group skills into learning paths, and manage everything from a profile dashboard.
 
-## What the project includes
+## Overview
 
-- User registration, login, logout, profile update, and profile deletion
+- Authentication with custom user model
+- Personal profile with image upload
 - Full CRUD for categories, skills, resources, and learning paths
-- Per-user content ownership
-- Search and detail pages with slug-based URLs
-- Profile image upload support
-- Auth-protected REST API endpoint for skills
-- Celery task for registration email sending
-- Shared timestamp base model for all main content types
-- Custom 404 page and reusable template partials
+- Per-user ownership for all main content
+- Slug-based detail pages
+- Authenticated REST API for skills
+- PostgreSQL-based persistence
+- Production-ready static file handling with WhiteNoise
+- Gunicorn support for deployment
+- Custom 404 and 500 pages
 
 ## Tech stack
 
@@ -20,63 +21,93 @@ SkillForge is a Django web application for planning and organizing learning cont
 - Django 6
 - Django REST Framework
 - PostgreSQL
-- Celery
-- Redis
+- Gunicorn
+- WhiteNoise
 - Pillow
+- python-dotenv
+- Unidecode
 - Django Templates
 - Custom CSS
 
-## Main modules
+## Apps
 
-- `accounts` - custom user model, authentication, profile management
+- `accounts` - registration, login, profile view/update/delete, custom user model
+- `skills` - skill CRUD and authenticated API endpoint
+- `resources` - resource CRUD with links to skills
+- `learning_paths` - learning path CRUD with grouped skills
 - `category` - category CRUD
-- `skills` - skill CRUD and API endpoint
-- `resources` - resource CRUD and skill relationships
-- `learning_paths` - learning path CRUD and skill grouping
-- `core` - home, about, validators, base model, shared utilities
-
-## Data model summary
-
-- `SkillForgeUser` extends Django `AbstractUser` and supports profile images
-- `Category` belongs to a user
-- `Skill` belongs to a category and a user
-- `Resource` belongs to a user and can be linked to multiple skills
-- `LearningPath` belongs to a user and can include multiple skills
-- All main content models inherit shared `created_at` and `updated_at` fields
+- `core` - home page, about page, shared base model, validators, error handlers
 
 ## Main routes
 
 - `/` - home page
 - `/about/` - about page
-- `/registration/` - user registration
+- `/registration/` - sign up
 - `/login/` - login
 - `/logout/` - logout
 - `/profile/` - user profile
+- `/categories/` - category management
 - `/skills/` - skill management
 - `/resources/` - resource management
 - `/paths/` - learning path management
-- `/categories/` - category management
 - `/api/skills/` - authenticated skills API
 - `/admin/` - Django admin
+
+## Data model summary
+
+- `SkillForgeUser` extends `AbstractUser` and adds a profile image
+- `Category` belongs to a user
+- `Skill` belongs to both a category and a user
+- `Resource` belongs to a user and can be attached to multiple skills
+- `LearningPath` belongs to a user and can include multiple skills
+- Main content models share `created_at` and `updated_at` timestamps through an abstract base model
 
 ## Project structure
 
 ```text
 SkillForge/
-|- SkillForge/        # project settings, root urls, celery, asgi/wsgi
-|- accounts/          # authentication and profile management
-|- category/          # category app
-|- core/              # shared logic, validators, base model, pages
-|- learning_paths/    # learning path app
-|- resources/         # resource app
-|- skills/            # skill app and API
-|- templates/         # global and app templates
+|- SkillForge/        # settings, urls, wsgi, asgi
+|- accounts/          # auth and user profile
+|- category/          # categories
+|- core/              # shared logic and static pages
+|- learning_paths/    # learning paths
+|- resources/         # learning resources
+|- skills/            # skills and API
+|- templates/         # HTML templates
 |- static/            # source static files
-|- media/             # uploaded profile images
+|- staticfiles/       # collected static files for deployment
+|- media/             # uploaded media
 |- manage.py
-`- requirements.txt
+|- requirements.txt
+`- .env
 ```
-## Local setup
+
+## Environment variables
+
+Create a `.env` file in the project root with values for:
+
+```env
+SECRET_KEY=your-secret-key
+DEBUG=True
+ALLOWED_HOSTS=127.0.0.1,localhost
+CSRF_TRUSTED_ORIGINS=http://127.0.0.1:8000,http://localhost:8000
+
+DB_NAME=skillforge
+DB_USER=postgres
+DB_PASSWORD=your-password
+DB_HOST=127.0.0.1
+DB_PORT=5432
+
+EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
+EMAIL_HOST_USER=your-email@example.com
+EMAIL_HOST_PASSWORD=your-app-password
+DEFAULT_FROM_EMAIL=your-email@example.com
+```
+
+## Local development
 
 ### 1. Clone the repository
 
@@ -109,7 +140,7 @@ pip install -r requirements.txt
 
 ### 4. Create the PostgreSQL database
 
-Create a database named `skillforge` and make sure the configured PostgreSQL user has access to it.
+Create a PostgreSQL database and update the `.env` values to match it.
 
 ### 5. Apply migrations
 
@@ -131,28 +162,33 @@ python manage.py runserver
 
 Open `http://127.0.0.1:8000/`.
 
-## Optional services
+## Deployment notes
 
-If you want Celery tasks such as registration email sending to run asynchronously, start Redis and a Celery worker:
+- The project is configured to run with `gunicorn`
+- Static files are collected into `staticfiles/`
+- WhiteNoise is enabled for serving static assets
+- Production hosts and trusted origins are controlled through `.env`
+- Uploaded media is stored in `media/`
+
+Example production commands:
 
 ```bash
-celery -A SkillForge worker --loglevel=info
+python manage.py collectstatic --noinput
+gunicorn SkillForge.wsgi:application
 ```
-
-If you do not want to run a worker during local development, set `CELERY_TASK_ALWAYS_EAGER=True`.
 
 ## API
 
-The project currently exposes one API endpoint:
+Authenticated users can use:
 
-- `GET /api/skills/` - list the authenticated user's skills
-- `POST /api/skills/` - create a skill for the authenticated user
+- `GET /api/skills/` - list their own skills
+- `POST /api/skills/` - create a new skill under their account
 
-Authentication is required for both operations.
+## Email behavior
+
+After registration, the project sends a welcome email using Django's email backend configuration from `.env`.
 
 ## Testing
-
-Run the test suite with:
 
 ```bash
 python manage.py test
@@ -160,6 +196,6 @@ python manage.py test
 
 ## Notes
 
-- Slugs are generated automatically with `unidecode`, which helps transliterate non-Latin titles.
-- Uploaded profile images are stored in `media/profile_images/`.
-- Static files are served from `static/`, and collected output goes to `staticfiles/`.
+- Slugs are generated with `Unidecode` for cleaner URLs
+- Uploaded profile images are stored under `media/profile_images/`
+- In production, keep `DEBUG=False` and set `ALLOWED_HOSTS` and `CSRF_TRUSTED_ORIGINS` correctly
