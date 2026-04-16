@@ -9,6 +9,7 @@ def send_register_email(email, username):
         f'Hello {username} and welcome to SkillForge! Your registration was successful.',
         EMAIL_HOST_USER,
         [email],
+        fail_silently=False
     )
 
 def send_register_email_async(email, username):
