@@ -1,14 +1,17 @@
 {% extends "base.html" %}
 {% load custom_filters custom_tags %}
 
-{% block title %}Public Skills{% endblock %}
+{% block title %}Skills{% endblock %}
 
 {% block content %}
 <div class="mb-5">
     <div class="row align-items-center mb-4">
         <div class="col-md-8">
-            <h1 class="h2 mb-2">Public Skills</h1>
+            <h1 class="h2 mb-2">Skills</h1>
             <p class="text-muted">Explore our comprehensive skill catalog</p>
+        </div>
+        <div class="col-md-4 text-end">
+        <a href="{% url 'create_skill' %}" class="btn btn-primary">+ Add New Skill</a>
         </div>
     </div>
 
@@ -36,6 +39,8 @@
                 <div class="card-footer bg-white border-top-0">
                     <div class="d-flex gap-2">
                         <a href="{% url 'skill_detail' skill.slug %}" class="btn btn-sm btn-outline-primary flex-grow-1">View</a>
+                        <a href="{% url 'update_skill' skill.id %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                        <a href="{% url 'delete_skill' skill.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
                     </div>
                 </div>
             </div>
@@ -43,9 +48,10 @@
         {% empty %}
         <div class="alert alert-info rounded-3" role="alert">
         <i class="bi bi-info-circle me-2"></i>
-        <strong>No public skills available yet.</strong>
+        <strong>No skills available yet.</strong> Create your first skill to get started.
         </div>
         {%endfor%}
     </div>
 </div>
 {% endblock %}
+

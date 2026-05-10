@@ -2,11 +2,14 @@ from django.contrib import messages
 from django.contrib.auth import login, get_user_model, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, UpdateView, DeleteView, FormView
+from django.views.generic import CreateView, DetailView, UpdateView, DeleteView, FormView, ListView
 
 from accounts.forms import RegistrationForm, UpdateProfileForm
+from core.forms import SearchForm
+from skills.models import Skill
 
 User = get_user_model()
 class RegisterView(CreateView):

@@ -14,10 +14,11 @@ class Skill(Requerment):
         ADVANCED = 'Advanced','Advanced'
     title = models.CharField(max_length=255,validators=[blank_validator])
     slug = models.SlugField(unique=True,blank=True,editable=False)
-    description = models.TextField(validators=[blank_validator])
+    description = models.TextField(blank=True,null=True)
     difficulty = models.CharField(max_length=50,choices=SkillChoices.choices)
     estimated_hours = models.PositiveIntegerField(validators=[MinValueValidator(1,'The estimated hours must be 1 or more')])
     category = models.ForeignKey(Category,on_delete=models.CASCADE,related_name='skills')
+    is_public = models.BooleanField(default=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='skills')
 
     def __str__(self):

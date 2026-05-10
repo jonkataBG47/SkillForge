@@ -31,9 +31,9 @@ class DeleteSkillView(LoginRequiredMixin,DeleteView):
     success_url = reverse_lazy('skill_list')
     def get_queryset(self):
         return Skill.objects.filter(user=self.request.user)
-class SkillListView(LoginRequiredMixin,ListView):
+class SkillListViewUser(LoginRequiredMixin,ListView):
     model = Skill
-    template_name = 'skills/skill_list.html'
+    template_name = 'accounts/skill_list.html'
     context_object_name = 'skills'
     def get_queryset(self):
         skills = Skill.objects.filter(user=self.request.user).order_by('-updated_at','title')
@@ -59,4 +59,19 @@ class SkillDetailView(LoginRequiredMixin,DetailView):
         context = super().get_context_data(**kwargs)
         context['resources'] = self.object.resources.all().order_by('-updated_at','title')
         return context
-
+class SkillListView(ListView):
+    model = Skill
+    template_name = 'skills/skill_list.html'
+    context_object_name = 'skills'
+    def get_queryset(self):
+        skills = Skill.objects.filter(is_public=True).order_by('-updated_at','title')
+        self.form = SearchForm(self.request.GET or None)
+        if self.form.is_valid():
+            query = self.form.cleaned_data['query']
+            filters = Q(title__icontains=query) | Q(category__name__icontains = query) | Q(user__username__icontains=query)
+            skills = skills.filter(filters)
+        return skills
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = self.form
+        return context

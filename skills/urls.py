@@ -9,5 +9,6 @@ urlpatterns = [
         path('<int:pk>/delete/', views.DeleteSkillView.as_view(), name='delete_skill'),
         path('<slug:slug>/', views.SkillDetailView.as_view(), name='skill_detail'),
     ])),
+    path('profile/skills/',views.SkillListViewUser.as_view(), name='profile_skills'),
     path('api/skills/',api_views.SkillApiView.as_view(), name='api_skill_list'),
 ]

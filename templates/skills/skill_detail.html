@@ -13,9 +13,11 @@
                 <p class="text-muted lead">{{skill.description}}</p>
                 </div>
                 <div>
+                 {% if request.user == skill.user %}
                 <a href="{% url 'update_skill' skill.id %}" class="btn btn-outline-primary">Edit</a>
                 <a href="{% url 'delete_skill' skill.id %}" class="btn btn-outline-danger">Delete</a>
-                </div>
+                 {% endif %}
+                 </div>
             </div>
 
             <div class="bg-white p-4 rounded-3 shadow-sm mb-4">
@@ -52,4 +54,3 @@
     </div>
 </div>
 {% endblock %}
-

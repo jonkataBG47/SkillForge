@@ -8,6 +8,7 @@
                 <h2 class="text-center">Profile</h2>
                 <button class="btn btn-primary float-right" onclick="window.location.href='{% url 'profile_update' %}'">Edit Profile</button>
                 <button class="btn btn-danger float-right mr-2" onclick="window.location.href='{% url 'profile_delete' %}'">Delete Profile</button>
+                <button class="btn btn-primary float-right" onclick="window.location.href='{% url 'profile_skills' %}'">View Skills</button>
             </div>
             <div class="card-body">
                 <p><strong>Username:</strong> {{ user.username }}</p>
